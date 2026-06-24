@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thomas Hotton — AI-native operator & builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0A0A0F;
+      --bg-card: #111118;
+      --bg-card-hover: #16161F;
+      --text: #F0F0F0;
+      --text-muted: #7A7A8C;
+      --text-dim: #3D3D52;
+      --accent: #5B4FFF;
+      --accent-glow: rgba(91, 79, 255, 0.14);
+      --accent-glow-hover: rgba(91, 79, 255, 0.28);
+      --border: rgba(255,255,255,0.06);
+      --border-accent: rgba(91, 79, 255, 0.4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,15,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      transition: color 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* PROBLEMS */
+    .problems-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 48px;
+    }
+    .problem-card {
+      background: var(--bg-card);
+      padding: 32px 30px;
+      transition: background 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .problem-card:hover { background: var(--bg-card-hover); }
+    .problem-before {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .problem-arrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .problem-arrow::after {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--text-dim);
+    }
+    .problem-before-text {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-style: italic;
+    }
+    .problem-after-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+    }
+    .problem-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* LAYOUT */
+    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+    section { padding: 96px 0; }
+
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 0 40px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 120px;
+      padding-bottom: 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(40px, 6vw, 78px);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: 32px;
+      max-width: 820px;
+    }
+    .hero-title .accent-word { color: var(--accent); }
+    .hero-sub {
+      font-size: clamp(15px, 1.8vw, 18px);
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 26px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: #6d64ff; box-shadow: 0 0 28px var(--accent-glow-hover); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 12px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+    .hero-location {
+      margin-top: 56px;
+      font-size: 12px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-location::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse-dot 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+      50% { opacity: 0.5; box-shadow: 0 0 3px var(--accent); }
+    }
+
+    /* SECTION LABELS */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 48px;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(22px, 2.8vw, 34px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    /* METRICS */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .metric-card {
+      background: var(--bg-card);
+      padding: 34px 30px;
+      transition: background 0.2s;
+    }
+    .metric-card:hover { background: var(--bg-card-hover); }
+    .metric-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .metric-value .metric-accent { color: var(--accent); }
+    .metric-label { font-size: 12px; color: var(--text-muted); line-height: 1.45; font-weight: 400; }
+
+    /* PROJECTS */
+    .projects-list { display: flex; flex-direction: column; gap: 2px; }
+    .project-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--border);
+      border-radius: 8px;
+      padding: 32px 34px;
+      transition: all 0.25s;
+      align-items: start;
+    }
+    .project-card:hover {
+      background: var(--bg-card-hover);
+      border-left-color: var(--accent);
+      box-shadow: -8px 0 32px -8px var(--accent-glow);
+      transform: translateX(3px);
+    }
+    .project-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .project-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-glow);
+      padding: 3px 9px;
+      border-radius: 3px;
+    }
+    .project-status { font-size: 10px; color: var(--text-dim); letter-spacing: 0.08em; }
+    .project-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .project-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; max-width: 520px; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+    .tech-pill {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 4px;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 0.02em;
+    }
+    .project-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+      min-width: 170px;
+    }
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 500;
+      font-family: 'Space Grotesk', sans-serif;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .project-link:hover { border-color: var(--border-accent); color: var(--accent); background: var(--accent-glow); }
+    /* VIDEO PLAYER */
+    .video-wrap {
+      width: 220px;
+      flex-shrink: 0;
+    }
+    .video-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .video-thumb:hover {
+      border-color: var(--border-accent);
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .video-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.45);
+      transition: background 0.2s;
+    }
+    .video-thumb:hover .video-thumb-overlay { background: rgba(0,0,0,0.3); }
+    .video-play-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(91,79,255,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+    }
+    .video-thumb:hover .video-play-btn {
+      transform: scale(1.1);
+      box-shadow: 0 0 32px rgba(91,79,255,0.7);
+    }
+    .video-label {
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .video-player-wrap {
+      display: none;
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-accent);
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+    .video-player-wrap video {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+    }
+    .video-container.playing .video-thumb { display: none; }
+    .video-container.playing .video-player-wrap { display: block; }
+    /* Pending placeholder — shown before video is added */
+    .video-pending {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: 1px dashed var(--text-dim);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      color: var(--text-dim);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* WORK SAMPLES */
+    .samples-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .sample-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 30px 28px;
+      transition: all 0.22s;
+    }
+    .sample-card:hover { background: var(--bg-card-hover); border-color: rgba(255,255,255,0.1); }
+    .sample-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+    .sample-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .sample-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+    .sample-bullets { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+    .sample-bullets li { font-size: 12.5px; color: var(--text-muted); display: flex; gap: 8px; }
+    .sample-bullets li::before { content: '+'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    /* EXPERIENCE */
+    .timeline { display: flex; flex-direction: column; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 148px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 148px 1fr;
+      gap: 0 44px;
+      padding: 30px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-period { font-size: 11px; color: var(--text-dim); padding-top: 4px; text-align: right; font-family: 'Space Grotesk', sans-serif; font-weight: 500; line-height: 1.5; }
+    .timeline-dot {
+      position: absolute;
+      left: 143px;
+      top: 36px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--text-dim);
+      transition: border-color 0.2s;
+    }
+    .timeline-item:hover .timeline-dot { border-color: var(--accent); }
+    .timeline-content { padding-left: 44px; }
+    .timeline-role { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); letter-spacing: -0.02em; margin-bottom: 3px; }
+    .timeline-company { font-size: 12.5px; color: var(--accent); margin-bottom: 12px; font-weight: 500; }
+    .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .timeline-bullets li { font-size: 13px; color: var(--text-muted); display: flex; gap: 8px; }
+    .timeline-bullets li::before { content: '+'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    /* CERTIFICATIONS */
+    .certs-section { display: flex; flex-direction: column; gap: 32px; }
+    .cert-group-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+    .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 20px;
+      transition: background 0.2s;
+    }
+    .cert-card:hover { background: var(--bg-card-hover); }
+    .cert-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 5px; line-height: 1.4; }
+    .cert-issuer { font-size: 11px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
+    .cert-id { font-size: 10px; color: var(--text-dim); font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.04em; }
+    .cert-id a { color: var(--text-dim); text-decoration: none; border-bottom: 1px dotted var(--text-dim); transition: color 0.2s; }
+    .cert-id a:hover { color: var(--text-muted); }
+
+    /* UNFAIR ADVANTAGES */
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .advantage-card {
+      background: var(--bg-card);
+      padding: 36px 32px;
+      transition: background 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .advantage-card:hover { background: var(--bg-card-hover); }
+    .advantage-icon {
+      font-size: 28px;
+      margin-bottom: 18px;
+      display: block;
+    }
+    .advantage-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .advantage-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+    .advantage-rule {
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+      margin-bottom: 18px;
+    }
+    .advantage-proof {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item:hover { background: var(--bg-card-hover); }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 28px;
+    }
+    .faq-q-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+    }
+    .faq-toggle {
+      width: 22px;
+      height: 22px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      font-size: 14px;
+      transition: all 0.2s;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1;
+    }
+    .faq-item.open .faq-toggle {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.2s ease;
+      padding: 0 28px;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding-bottom: 24px;
+    }
+    .faq-a-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      border-left: 2px solid var(--accent);
+      padding-left: 16px;
+    }
+
+    /* CONTACT */
+    .contact-inner {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 60px 52px;
+      background: var(--bg-card);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
+    }
+    .contact-heading { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 3vw, 38px); font-weight: 700; letter-spacing: -0.03em; color: var(--text); margin-bottom: 14px; }
+    .contact-sub { font-size: 14px; color: var(--text-muted); max-width: 400px; line-height: 1.65; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+    .contact-link { display: inline-flex; align-items: center; gap: 10px; color: var(--text-muted); text-decoration: none; font-size: 13.5px; transition: color 0.2s; font-weight: 400; }
+    .contact-link:hover { color: var(--text); }
+    .contact-link-icon {
+      width: 34px; height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .contact-link:hover .contact-link-icon { border-color: var(--border-accent); background: var(--accent-glow); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 26px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-name { font-family: 'Space Grotesk', sans-serif; font-size: 12px; color: var(--text-dim); font-weight: 500; }
+    .footer-stack { font-size: 11px; color: var(--text-dim); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      #hero { padding: 100px 20px 60px; }
+      .page-wrap { padding: 0 20px; }
+      section { padding: 64px 0; }
+      .section-divider { margin: 0 20px; }
+      .advantages-grid { grid-template-columns: 1fr; }
+      .problems-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-card { grid-template-columns: 1fr; padding: 24px 20px; }
+      .video-wrap { width: 100%; }
+      .project-actions { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+      .loom-placeholder { width: 130px; height: 76px; }
+      .samples-grid { grid-template-columns: 1fr; }
+      .certs-grid { grid-template-columns: 1fr 1fr; }
+      .timeline::before { display: none; }
+      .timeline-item { grid-template-columns: 1fr; gap: 6px; }
+      .timeline-period { text-align: left; }
+      .timeline-dot { display: none; }
+      .timeline-content { padding-left: 0; }
+      .contact-inner { grid-template-columns: 1fr; padding: 36px 24px; gap: 32px; }
+      .contact-links { align-items: flex-start; }
+      footer { padding: 22px 20px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .metric-card { padding: 22px 18px; }
+      .certs-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .hero-location::before { animation: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">T<span>.</span>H</a>
+    <ul class="nav-links">
+      <li><a href="#problems">What I solve</a></li>
+      <li><a href="#metrics">Metrics</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#samples">Work Samples</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#whyme">Why me</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-eyebrow">AI-native operator &amp; builder</div>
+    <h1 class="hero-title">
+      Turns ambiguous problems<br/>
+      into <span class="accent-word">shipped</span> AI systems.
+    </h1>
+    <p class="hero-sub">
+      3.5 years, 3 markets, zero churn.<br/>
+      I don't prototype &mdash; I operate and I ship.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.1 11.26a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .5h3a2 2 0 012 1.72c.128.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.34a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.572 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Let's talk
+      </a>
+      <a href="#projects" class="btn-ghost">
+        See what I've built
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+    </div>
+    <div class="hero-location">Available for remote contracts &mdash; Bishkek, Kyrgyzstan (UTC+6)</div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- PROBLEMS I SOLVE -->
+  <section id="problems">
+    <div class="page-wrap">
+      <div class="section-label reveal">What I solve</div>
+      <div class="problems-grid reveal">
+
+        <div class="problem-card">
+          <div class="problem-before">
+            <div class="problem-arrow">Before</div>
+            <div class="problem-before-text">Client signals missed until it's too late. At-risk accounts invisible until they churn. Account manager reacting instead of anticipating.</div>
+          </div>
+          <div class="problem-divider"></div>
+          <div class="problem-after-text">Systems that surface risk early. Zero churn on key accounts over 3.5 years. Management gets insights before problems escalate.</div>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-before">
+            <div class="problem-arrow">Before</div>
+            <div class="problem-before-text">Ambiguous brief, unclear ownership, no playbook. Team waits for direction. Nothing ships.</div>
+          </div>
+          <div class="problem-divider"></div>
+          <div class="problem-after-text">Diagnosis in days, not weeks. Structure where there was chaos. 8 SMB engagements delivered end-to-end with zero handholding.</div>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-before">
+            <div class="problem-arrow">Before</div>
+            <div class="problem-before-text">Manual prep before every client call. 30 minutes wasted researching context that should already exist.</div>
+          </div>
+          <div class="problem-divider"></div>
+          <div class="problem-after-text">Debrief: paste a name, get a structured brief in seconds. Built because I needed it. Now in production with live users and Stripe billing.</div>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-before">
+            <div class="problem-arrow">Before</div>
+            <div class="problem-before-text">Onboarding health invisible. No way to know which accounts are thriving and which are silently failing until renewal.</div>
+          </div>
+          <div class="problem-divider"></div>
+          <div class="problem-after-text">Pulse: multi-dimension LLM health scoring across active accounts. Risk surfaces before it becomes a conversation you don't want to have.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- METRICS -->
+  <section id="metrics">
+    <div class="page-wrap reveal">
+      <div class="section-label">By the numbers</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value"><span class="metric-accent counter" data-target="212">0</span><span class="metric-accent">%</span></div>
+          <div class="metric-label">Peak NRR on key account<br/>(11-month period)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value"><span class="metric-accent">&#8364;</span><span class="counter" data-target="392">0</span><span>K</span></div>
+          <div class="metric-label">Revenue generated<br/>over 3.5 years</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value"><span class="metric-accent">&#8364;</span><span class="counter" data-target="42">0</span><span>K</span></div>
+          <div class="metric-label">Revenue recovered<br/>from at-risk accounts</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value"><span class="metric-accent counter" data-target="5">0</span></div>
+          <div class="metric-label">AI tools in production<br/>live users, Stripe integrated</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="page-wrap">
+      <div class="section-label reveal">In production</div>
+      <div class="projects-list">
+
+        <div class="project-card reveal">
+          <div class="project-info">
+            <div class="project-meta"><span class="project-tag">AI Tool</span><span class="project-status">Live &mdash; Stripe integrated</span></div>
+            <div class="project-name">Debrief</div>
+            <div class="project-desc">
+              <span style="color:var(--text-dim);font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">The problem &mdash;</span><br/>
+              Every client call started with 20-30 minutes of manual research. Scattered tabs, CRM notes, LinkedIn profiles. Time wasted on context that should already exist.<br/><br/>
+              <span style="color:var(--text-dim);font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">What I built &mdash;</span><br/>
+              Paste a name or company. Get a structured intelligence brief in seconds: background, key signals, talking points, risk flags. Groq-powered, Supabase auth, Stripe billing.<br/><br/>
+              <span style="color:var(--accent);font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Impact &mdash;</span><br/>
+              In production with live users. Turned a recurring workflow problem into a shipped, monetized tool.
+            </div>
+            <div class="project-tech">
+              <span class="tech-pill">Groq API</span>
+              <span class="tech-pill">Supabase auth</span>
+              <span class="tech-pill">Stripe webhooks</span>
+              <span class="tech-pill">Vercel serverless</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://call-prep-uokh.vercel.app/landing.html" target="_blank" rel="noopener noreferrer" class="project-link">
+              Open app <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+            <div class="loom-placeholder">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              Loom demo
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-info">
+            <div class="project-meta"><span class="project-tag">Dashboard</span><span class="project-status">Live</span></div>
+            <div class="project-name">Pulse</div>
+            <div class="project-desc">
+              <span style="color:var(--text-dim);font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">The problem &mdash;</span><br/>
+              Implementation health is invisible until it's too late. CSMs find out an account is at risk at renewal, not 90 days before.<br/><br/>
+              <span style="color:var(--text-dim);font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">What I built &mdash;</span><br/>
+              A health scoring dashboard that runs LLM analysis across multiple dimensions: adoption signals, engagement depth, blocker patterns, risk flags. Designed for CS and onboarding teams operating at scale.<br/><br/>
+              <span style="color:var(--accent);font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">Impact &mdash;</span><br/>
+              Risk surfaces before it becomes a conversation you don't want to have. Deployed on GitHub Pages, Groq backend, zero ongoing cost.
+            </div>
+            <div class="project-tech">
+              <span class="tech-pill">Groq API</span>
+              <span class="tech-pill">llama3-8b-8192</span>
+              <span class="tech-pill">GitHub Pages</span>
+              <span class="tech-pill">Vanilla JS</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://thomas2143.github.io/pulse/app.html" target="_blank" rel="noopener noreferrer" class="project-link">
+              Open app <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+            <div class="loom-placeholder">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              Loom demo
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-info">
+            <div class="project-meta"><span class="project-tag">Creative AI</span><span class="project-status">Live</span></div>
+            <div class="project-name">Insight</div>
+            <div class="project-desc">Particle-based AI visualization tool. Type a prompt, watch it become a living shape. Groq-powered form generation, real-time particle physics, studio and test modes. Built to explore AI-generated aesthetics.</div>
+            <div class="project-tech">
+              <span class="tech-pill">Groq API</span>
+              <span class="tech-pill">Canvas API</span>
+              <span class="tech-pill">Vercel backend</span>
+              <span class="tech-pill">GitHub Pages</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://thomas2143.github.io/Insight" target="_blank" rel="noopener noreferrer" class="project-link">
+              Open app <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+            <div class="loom-placeholder">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              Loom demo
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-info">
+            <div class="project-meta"><span class="project-tag">Interactive CV</span><span class="project-status">Deployed</span></div>
+            <div class="project-name">Interactive CV Slideshow</div>
+            <div class="project-desc">A recruiter-facing CV built as a cinematic slideshow. Career timeline, metrics, Q&amp;A mode, unfair advantages, role-specific fit slides. Deployed as a single HTML file with zero dependencies.</div>
+            <div class="project-tech">
+              <span class="tech-pill">Vanilla JS</span>
+              <span class="tech-pill">CSS animations</span>
+              <span class="tech-pill">Single HTML file</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <div class="loom-placeholder" style="width:170px; height:96px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              Loom demo
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-info">
+            <div class="project-meta"><span class="project-tag">SaaS Tool</span><span class="project-status">Live &mdash; AI-powered</span></div>
+            <div class="project-name">Job Pipeline Tracker</div>
+            <div class="project-desc">A full job search tracker with Groq-powered JD analysis, CV-to-JD matchmaking, T-chart fit scoring, pipeline management, and Excel/CSV import. Built for job seekers who treat their search like a sales pipeline.</div>
+            <div class="project-tech">
+              <span class="tech-pill">Groq API</span>
+              <span class="tech-pill">llama-3.3-70b</span>
+              <span class="tech-pill">Vercel backend</span>
+              <span class="tech-pill">SheetJS</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://job-pipeline-chi.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link">
+              Open app <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+            <div class="loom-placeholder">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              Loom demo
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- WORK SAMPLES -->
+  <section id="samples">
+    <div class="page-wrap">
+      <div class="section-label reveal">Work samples</div>
+      <div class="samples-grid">
+
+        <div class="sample-card reveal">
+          <div class="sample-tag">SMB Audit &mdash; Confidential client</div>
+          <div class="sample-title">Maison X &mdash; Brand &amp; Digital Audit</div>
+          <div class="sample-desc">Full strategic audit for a Moroccan dress specialist in Liege. 6-point analysis delivered as a structured PDF, with a prioritized action plan and video production offer.</div>
+          <ul class="sample-bullets">
+            <li>Brand image vs. showroom consistency diagnosis</li>
+            <li>Instagram/TikTok bio rewrite + pro account setup</li>
+            <li>Google Business Profile strategy + review QR system</li>
+            <li>Competitive analysis against direct local competitor</li>
+            <li>Brand repositioning: from dress seller to specialist identity</li>
+            <li>Video production roadmap (business card, showcase, testimonial)</li>
+          </ul>
+        </div>
+
+        <div class="sample-card reveal">
+          <div class="sample-tag">CS Tooling &mdash; Internal build</div>
+          <div class="sample-title">PRINK &mdash; CRM Health Dashboard</div>
+          <div class="sample-desc">Color-coded CRM dashboard built to surface at-risk accounts before they escalated. Used across BE/FR/IT markets. Insights relayed to management and marketing.</div>
+          <ul class="sample-bullets">
+            <li>Account segmentation by health signal and revenue tier</li>
+            <li>At-risk detection before escalation, not after</li>
+            <li>Cross-market visibility for management across 3 countries</li>
+            <li>Contributed to zero churn outcome on key accounts over 3.5 years</li>
+          </ul>
+        </div>
+
+        <div class="sample-card reveal">
+          <div class="sample-tag">Consulting &mdash; 8 engagements</div>
+          <div class="sample-title">SMB Consulting &mdash; End-to-end delivery</div>
+          <div class="sample-desc">8 SMB clients across fashion, fitness, hospitality, and content creation. Every engagement delivered solo, end-to-end, with a post-engagement roadmap for client autonomy.</div>
+          <ul class="sample-bullets">
+            <li>Gap diagnosis between self-perception and customer perception</li>
+            <li>Repositioning plans covering brand, digital, and operations</li>
+            <li>Video content production: script, shoot, edit</li>
+            <li>+2K subscribers in 3 months for one client's channel</li>
+          </ul>
+        </div>
+
+        <div class="sample-card reveal">
+          <div class="sample-tag">E-commerce &mdash; 2 years</div>
+          <div class="sample-title">White Light &mdash; 13-Store Shopify Operation</div>
+          <div class="sample-desc">Operated 13 Shopify stores simultaneously across US, UK, and FR markets. Full lifecycle ownership from setup to paid acquisition, fulfillment, and customer retention.</div>
+          <ul class="sample-bullets">
+            <li>Ads and branding managed across 13 websites in parallel</li>
+            <li>Customer journey and ROI data turned into retention strategies</li>
+            <li>Consistent performance maintained across 3 distinct market contexts</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="page-wrap">
+      <div class="section-label reveal">Experience</div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-period">2024 &mdash; now</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-role">AI Operator &amp; Freelance Consultant</div>
+            <div class="timeline-company">Independent &mdash; Kyrgyz LLC</div>
+            <ul class="timeline-bullets">
+              <li>5 AI tools in production: Debrief, Pulse, Insight, Interactive CV, Job Pipeline Tracker</li>
+              <li>8 SMB clients end-to-end, zero handholding &mdash; fashion, fitness, hospitality, content</li>
+              <li>Ikigai-based positioning as simplifier and operator for early-stage founders (3-15 people, in revenue)</li>
+              <li>Groq, Supabase, Stripe, Vercel, GitHub Pages stack across all projects</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-period">2021 &mdash; 2024</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-role">Account Manager &amp; Client Success</div>
+            <div class="timeline-company">PRINK IRIPARO SA &mdash; BE/FR/IT markets</div>
+            <ul class="timeline-bullets">
+              <li>+212% and +187% NRR across two B2B SMB portfolios in 11 months each</li>
+              <li>Grew annual revenue from &#8364;62K (2021) to &#8364;116K (2022) to &#8364;214K (2023) = &#8364;392K in 3 years</li>
+              <li>Recovered &#8364;42K in unpaid invoices in 6 months through structured outreach</li>
+              <li>Zero churn on key accounts over 3.5 years across 3 international markets</li>
+              <li>Go-to for FR and IT accounts; assigned by management when situations were complex</li>
+              <li>Trained 5 colleagues on product and client-facing tools</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-period">Nov 2020 &mdash; Feb 2021</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-role">Sales Consultant</div>
+            <div class="timeline-company">Desco &mdash; Belgium</div>
+            <ul class="timeline-bullets">
+              <li>Structured discovery sessions to translate client needs into scoped, costed projects</li>
+              <li>From ambiguous brief to delivery-ready specification</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-period">2018 &mdash; 2020</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-role">Junior Digital Marketing Manager</div>
+            <div class="timeline-company">White Light &mdash; Remote (US/UK/FR)</div>
+            <ul class="timeline-bullets">
+              <li>Built and operated 13 Shopify stores across US, UK, and FR markets</li>
+              <li>Managed ads and branding across 13 websites, consistent performance across 3 markets</li>
+              <li>Customer journey and ROI data turned into retention strategies</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="page-wrap">
+      <div class="section-label reveal">Certifications</div>
+      <div class="certs-section">
+
+        <!-- Anthropic -->
+        <div class="reveal">
+          <div class="cert-group-label">Anthropic</div>
+          <div class="certs-grid">
+            <div class="cert-card">
+              <div class="cert-name">Claude Code 101</div>
+              <div class="cert-issuer">Anthropic &mdash; Jun 2026</div>
+              <div class="cert-id"><a href="https://verify.skilljar.com/c/2ta6fberxc7u" target="_blank" rel="noopener">2ta6fberxc7u &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">Introduction to Subagents</div>
+              <div class="cert-issuer">Anthropic &mdash; Jun 2026</div>
+              <div class="cert-id"><a href="https://verify.skilljar.com/c/xy2h68r2jp24" target="_blank" rel="noopener">xy2h68r2jp24 &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">Introduction to Agent Skills</div>
+              <div class="cert-issuer">Anthropic &mdash; Jun 2026</div>
+              <div class="cert-id"><a href="https://verify.skilljar.com/c/he3oevuhwm5c" target="_blank" rel="noopener">he3oevuhwm5c &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">Introduction to Claude Cowork</div>
+              <div class="cert-issuer">Anthropic &mdash; May 2026</div>
+              <div class="cert-id"><a href="https://verify.skilljar.com/c/rc4jihf6ovpg" target="_blank" rel="noopener">rc4jihf6ovpg &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">AI Fluency: Framework &amp; Foundations</div>
+              <div class="cert-issuer">Anthropic &mdash; May 2026</div>
+              <div class="cert-id"><a href="https://verify.skilljar.com/c/o8xzov45ddvy" target="_blank" rel="noopener">o8xzov45ddvy &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">Claude 101</div>
+              <div class="cert-issuer">Anthropic &mdash; May 2026</div>
+              <div class="cert-id"><a href="https://verify.skilljar.com/c/wdakobvbjuz7" target="_blank" rel="noopener">wdakobvbjuz7 &nearr;</a></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HubSpot -->
+        <div class="reveal">
+          <div class="cert-group-label">HubSpot Academy</div>
+          <div class="certs-grid">
+            <div class="cert-card">
+              <div class="cert-name">Sales Hub Software</div>
+              <div class="cert-issuer">HubSpot &mdash; May 2026</div>
+              <div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/gfhfg9sh/en/1/thomas-hotton/hubspot-sales-hub-software" target="_blank" rel="noopener">de5404c5527a &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">Service Hub Software</div>
+              <div class="cert-issuer">HubSpot &mdash; Apr 2026</div>
+              <div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/kyyqnp8c/en/1/thomas-hotton/service-hub-software" target="_blank" rel="noopener">5e8bc38882c5 &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">Data Integrations Certification</div>
+              <div class="cert-issuer">HubSpot &mdash; Apr 2026</div>
+              <div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/dqcyh384/en/1/thomas-hotton/data-integrations-certification" target="_blank" rel="noopener">ec927787bb18 &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">Inbound Marketing</div>
+              <div class="cert-issuer">HubSpot &mdash; Apr 2026</div>
+              <div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/v67dhwjn/fr/1/thomas-hotton/inbound-marketing" target="_blank" rel="noopener">d02dd8977844 &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">Frictionless Selling Methodology</div>
+              <div class="cert-issuer">HubSpot &mdash; Apr 2026</div>
+              <div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/qc4mj71j/fr/1/thomas-hotton/certification-a-la-methodologie-de-vente-sans-frictions" target="_blank" rel="noopener">565c0385efa9 &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">Inbound &amp; Inbound Sales</div>
+              <div class="cert-issuer">HubSpot &mdash; Apr 2026</div>
+              <div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/pz4f7nt5/fr/1/thomas-hotton/inbound" target="_blank" rel="noopener">a32d633df385 &nearr;</a></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gainsight -->
+        <div class="reveal">
+          <div class="cert-group-label">Gainsight</div>
+          <div class="certs-grid">
+            <div class="cert-card">
+              <div class="cert-name">AI-Powered Customer Success</div>
+              <div class="cert-issuer">Gainsight &mdash; Apr 2026</div>
+              <div class="cert-id"><a href="https://www.credly.com/badges/f422203c-23b2-407e-a813-58821e4cec7f/linked_in_profile" target="_blank" rel="noopener">Credly badge &nearr;</a></div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">Durable Growth Playbook</div>
+              <div class="cert-issuer">Gainsight &mdash; Apr 2026</div>
+              <div class="cert-id"><a href="https://www.credly.com/badges/972e5626-d030-403a-8367-7a5aa19a7c49/linked_in_profile" target="_blank" rel="noopener">Credly badge &nearr;</a></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="reveal">
+          <div class="cert-group-label">Education</div>
+          <div class="certs-grid">
+            <div class="cert-card">
+              <div class="cert-name">Business Management Diploma</div>
+              <div class="cert-issuer">Central Jury, Namur &mdash; 2024/2025</div>
+              <div class="cert-id">ISL Institut Saint-Laurent</div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">ICF Level 2 Coach Certification</div>
+              <div class="cert-issuer">IGC School (PCC pathway) &mdash; In progress</div>
+              <div class="cert-id">Inner Glow Circle</div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-name">BAC+2 &mdash; Cinema &amp; Audiovisual</div>
+              <div class="cert-issuer">ESRA Brussels &mdash; 2016/2018</div>
+              <div class="cert-id">Ecole Superieure de Realisation Audiovisuelle</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- UNFAIR ADVANTAGES -->
+  <section id="whyme">
+    <div class="page-wrap">
+      <div class="section-label reveal">Why me and not someone else</div>
+      <div class="advantages-grid reveal">
+
+        <div class="advantage-card">
+          <span class="advantage-icon">🧠</span>
+          <div class="advantage-title">Coaching</div>
+          <div class="advantage-desc">10+ years as a coaching client. ICF Level 2 certification in progress. I've been guided by some of the best coaches in the world — and I've internalized how to guide others.</div>
+          <div class="advantage-rule"></div>
+          <div class="advantage-proof">Most CSMs manage the relationship. I understand the 1:1 dynamic from both sides — what it feels like to be guided, what it takes to actually change someone's trajectory. That changes how I run onboarding calls, QBRs, and difficult conversations.</div>
+        </div>
+
+        <div class="advantage-card">
+          <span class="advantage-icon">🎬</span>
+          <div class="advantage-title">Production</div>
+          <div class="advantage-desc">ESRA film school trained. Professional video production background. Content that has reached large audiences. I show up to calls with a dedicated studio setup.</div>
+          <div class="advantage-rule"></div>
+          <div class="advantage-proof">Most CSMs know the product. Few know how to make it land. I can build client-facing content solo: onboarding videos, walkthroughs, demos. How you look on screen is part of the trust you build from day one — I take that seriously.</div>
+        </div>
+
+        <div class="advantage-card">
+          <span class="advantage-icon">🔍</span>
+          <div class="advantage-title">Operator instinct</div>
+          <div class="advantage-desc">I help clients get genuinely better off — not just retained. Audits, health scoring, customer journey analysis — I reframe the problem before solving it.</div>
+          <div class="advantage-rule"></div>
+          <div class="advantage-proof">Most CSMs manage the relationship. I read the business behind it: positioning gaps, perception issues, what the data doesn't say out loud. Then I build the system that fixes it — and ship it.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="page-wrap">
+      <div class="section-label reveal">Things you're probably wondering</div>
+      <div class="faq-list reveal">
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <div class="faq-q-text">Will you actually show up and deliver without anyone watching?</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-text">Yes — my clients are my reputation. I've worked within remote teams and my freelance experience taught me personal management outside classical structures. I meet deadlines without supervision. The 8 SMB engagements delivered end-to-end, zero handholding, are the evidence.</div>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <div class="faq-q-text">Can you work reliably from Bishkek?</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-text">Yes. Dedicated home office, stable connection, backup workspace if needed. UTC+6 gives me natural overlap with EU mornings and US EST. I've operated across BE/FR/IT markets remotely for 3.5 years — timezone management is not a new constraint for me.</div>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <div class="faq-q-text">Why remote — real choice or fallback?</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-text">Deliberate choice. I relocated to a new country because I wanted to. That makes fully remote non-negotiable — and it's also the natural mode given everything I've built. The people I want to work with don't care where you sit, they care what you ship.</div>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <div class="faq-q-text">Are you who you say you are?</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-text">The numbers are real: +212% NRR, &#8364;392K revenue, &#8364;42K recovered, zero churn over 3.5 years. The tools are live — open them, use them. The certifications link to verified credentials. I have client references in French, happy to share on request.</div>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-question">
+            <div class="faq-q-text">What do you actually want?</div>
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-a-text">A team where impact matters more than presence. Where I can diagnose, build structure, and ship — without waiting for permission. Early-stage or scaling SaaS, remote-first, contractor or EOR. If you're reading this and it sounds like your company, let's talk.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="page-wrap reveal">
+      <div class="contact-inner">
+        <div>
+          <h2 class="contact-heading">Ready to ship something?</h2>
+          <p class="contact-sub">I work with early-stage founders and SaaS teams who need someone who can diagnose fast, build structure, and deliver without hand-holding. Remote-first, UTC+6, contractor via Kyrgyz LLC.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:thomas.hotton@gmail.com" class="contact-link">
+            <div class="contact-link-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            thomas.hotton@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/thomas-hotton" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <div class="contact-link-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            linkedin.com/in/thomas-hotton
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Thomas Hotton &mdash; 2026</div>
+    <div class="footer-stack">Built with HTML, CSS, and zero frameworks.</div>
+  </footer>
+
+  <script>
+    // FAQ ACCORDION
+    function toggleFaq(item) {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // SCROLL REVEAL
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.07 });
+    reveals.forEach(el => observer.observe(el));
+
+    // COUNTER ANIMATION
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target, 10);
+      if (target === 0) { el.textContent = '0'; return; }
+      const duration = 1200;
+      const start = performance.now();
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(update);
+    }
+
+    const metricsSection = document.getElementById('metrics');
+    let countersStarted = false;
+    const metricsObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !countersStarted) {
+        countersStarted = true;
+        document.querySelectorAll('.counter').forEach(animateCounter);
+      }
+    }, { threshold: 0.3 });
+    metricsObserver.observe(metricsSection);
+
+    // ACTIVE NAV
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => {
+            a.style.color = a.getAttribute('href') === '#' + entry.target.id ? 'var(--text)' : '';
+          });
+        }
+      });
+    }, { threshold: 0.35 });
+    sections.forEach(s => navObserver.observe(s));
+  </script>
+</body>
+</html>
