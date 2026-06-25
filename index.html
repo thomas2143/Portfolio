@@ -49,11 +49,11 @@
     .nav-cta:hover { background: #3a72df !important; transform: translateY(-1px); }
 
     /* ── HERO PHOTO ── */
-    .hero-top { display: flex; align-items: flex-start; gap: 36px; margin-bottom: 0; }
-    .hero-photo-wrap { flex-shrink: 0; padding-top: 2px; }
-    .hero-photo { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; object-position: center top; border: 2px solid rgba(75,131,240,0.35); box-shadow: 0 0 0 4px rgba(75,131,240,0.08); }
+    .hero-top { display: flex; align-items: flex-start; gap: 40px; margin-bottom: 0; }
+    .hero-photo-wrap { flex-shrink: 0; padding-top: 2px; margin-left: -20px; }
+    .hero-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center top; border: 2px solid rgba(75,131,240,0.35); box-shadow: 0 0 0 5px rgba(75,131,240,0.08); }
     .hero-text { flex: 1; min-width: 0; }
-    @media (max-width: 600px) { .hero-top { flex-direction: column; gap: 20px; } .hero-photo { width: 72px; height: 72px; } }
+    @media (max-width: 600px) { .hero-top { flex-direction: column; gap: 20px; } .hero-photo-wrap { margin-left: 0; } .hero-photo { width: 80px; height: 80px; } }
 
     /* ── LAYOUT ── */
     .page-wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
@@ -69,7 +69,7 @@
 
     .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; animation: heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s both; }
     .hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent); }
-    .hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 4.8vw, 62px); font-weight: 700; line-height: 1.08; letter-spacing: -0.04em; color: var(--text); margin-bottom: 24px; animation: heroFadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.25s both; }
+    .hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 3.2vw, 44px); font-weight: 700; line-height: 1.12; letter-spacing: -0.04em; color: var(--text); margin-bottom: 24px; animation: heroFadeUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.25s both; }
     .hero-title .accent-word { color: var(--accent); }
     .hero-sub { font-size: clamp(14px, 1.6vw, 17px); color: var(--text-muted); max-width: 520px; line-height: 1.65; margin-bottom: 36px; font-weight: 300; animation: heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.4s both; }
     .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 40px; animation: heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.54s both; }
