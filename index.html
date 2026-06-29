@@ -382,6 +382,12 @@
       .reveal, .reveal-left { opacity: 1; transform: none; transition: none; }
       .hero-eyebrow, .hero-title, .hero-sub, .hero-actions, .hero-location, .hero-stat-strip { animation: none; opacity: 1; transform: none; }
     }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--scrollbar-color, #4B83F0); border-radius: 999px; }
+    * { scrollbar-width: thin; scrollbar-color: var(--scrollbar-color, #4B83F0) var(--bg); }
   </style>
 </head>
 
@@ -1021,6 +1027,24 @@
     }, { threshold: 0.3 });
     const ms = document.getElementById('metrics');
     if (ms) metricsObs.observe(ms);
+
+    // SCROLLBAR COLOR
+    (function() {
+      const colorStart = { r: 75, g: 131, b: 240 };   // --accent bleu
+      const colorEnd   = { r: 245, g: 158, b: 11 };   // --accent2 ambre
+      function lerp(a, b, t) { return Math.round(a + (b - a) * t); }
+      function updateScrollbar() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const t = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+        const r = lerp(colorStart.r, colorEnd.r, t);
+        const g = lerp(colorStart.g, colorEnd.g, t);
+        const b = lerp(colorStart.b, colorEnd.b, t);
+        document.documentElement.style.setProperty('--scrollbar-color', `rgb(${r},${g},${b})`);
+      }
+      window.addEventListener('scroll', updateScrollbar, { passive: true });
+      updateScrollbar();
+    })();
 
     // ACTIVE NAV
     const sections = document.querySelectorAll('section[id]');
