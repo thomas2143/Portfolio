@@ -98,10 +98,6 @@
       <span class="pill">July 2026</span>
     </div>
     <div class="hero-actions">
-      <a href="./deck.pdf" download class="btn-primary">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download PDF
-      </a>
       <a href="../index.html#contact" class="btn-ghost">Let's talk</a>
     </div>
   </div>
@@ -127,6 +123,12 @@
 
   <div class="viewer-wrap">
     <div class="viewer-label">Slide deck</div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+      <a href="./deck.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);border:1px solid var(--border);padding:6px 12px;border-radius:6px;text-decoration:none;transition:all 0.2s;font-family:'Space Grotesk',sans-serif;" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--border-accent)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        Open fullscreen
+      </a>
+    </div>
     <div class="pdf-container">
       <iframe
         src="./deck.pdf"
@@ -136,7 +138,6 @@
       ></iframe>
       <div class="pdf-fallback">
         <p>Your browser doesn't support inline PDF viewing.</p>
-        <a href="./deck.pdf" download class="btn-primary">Download the deck</a>
       </div>
     </div>
   </div>
