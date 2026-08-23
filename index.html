@@ -397,9 +397,10 @@
   <nav>
     <a href="#hero" class="nav-logo">Thomas<span> Hotton</span></a>
     <ul class="nav-links">
-      <li><a href="#whyme">Why me</a></li>
+      <li><a href="#whyme">What sets me apart</a></li>
       <li><a href="#projects">Work Samples</a></li>
       <li><a href="#experience">Background</a></li>
+      <li><a href="#tools">Tools</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact" class="nav-cta">Let's talk</a></li>
     </ul>
@@ -476,19 +477,19 @@
   <!-- ── 2. WHY ME ── -->
   <section id="whyme">
     <div class="page-wrap">
-      <div class="section-label reveal">Why me and not someone else</div>
+      <div class="section-label reveal">What sets me apart</div>
       <div class="advantages-grid" style="grid-template-columns: repeat(2,1fr);">
         <div class="advantage-card reveal">
           <span class="advantage-icon">🧠</span>
           <div class="advantage-title">Coaching</div>
-          <div class="advantage-desc">10+ years as a coaching client. ICF Level 2 in progress. Guided by some of the best coaches in the world and I've internalized how to guide others.</div>
+          <div class="advantage-desc">10+ years as a coaching client, ICF Level 2 in progress. The skill that makes stakeholder work and difficult conversations easier.</div>
           <div class="advantage-rule"></div>
           <div class="advantage-proof">Ten years as a coaching client, ICF Level 2 in progress. I have internalized how to read people, surface what is actually blocking a situation, and guide a conversation toward a decision — without imposing a direction.</div>
         </div>
         <div class="advantage-card reveal" style="transition-delay:90ms;">
           <span class="advantage-icon">🎬</span>
           <div class="advantage-title">Production</div>
-          <div class="advantage-desc">ESRA film school trained. Professional video background. Content that has reached large audiences. I have the skills to make video content for clients like none.</div>
+          <div class="advantage-desc">ESRA film school trained. I can produce the walkthroughs, demos and explainer content that make a system actually get adopted.</div>
           <div class="advantage-rule"></div>
           <div class="advantage-proof">Most operators know the system. Few know how to make it land with the people using it. I can build client-facing content solo: walkthroughs, demos, explainer videos. How you communicate a solution is part of whether it gets adopted.</div>
         </div>
@@ -502,9 +503,9 @@
         <div class="advantage-card reveal" style="transition-delay:270ms;">
           <span class="advantage-icon">🌍</span>
           <div class="advantage-title">Cross-cultural fluency</div>
-          <div class="advantage-desc">24 countries visited. Lived in New Zealand, Australia, Belgium and Morocco. Relocating to Central Asia. Russian in progress.</div>
+          <div class="advantage-desc">Lived and worked across 4 countries, relocating to Central Asia. I read cross-cultural business dynamics that trip up people who assume one universal playbook.</div>
           <div class="advantage-rule"></div>
-          <div class="advantage-proof">Communication styles are not universal. Belgian clients expect structure and clear commitments. Moroccan counterparts prioritize the relationship over the schedule. In Russian-speaking business culture, silence is not a dead end — and information is rarely shared proactively. Knowing which mode you are in changes how you run a negotiation, a kickoff, or a difficult conversation.</div>
+          <div class="advantage-proof">Communication styles are not universal. Belgian clients expect structure and clear commitments. Moroccan counterparts prioritize the relationship over the schedule. In Russian-speaking business culture, silence is not a dead end, and information is rarely shared proactively. Knowing which mode you are in changes how you run a negotiation, a kickoff, or a difficult conversation.</div>
         </div>
       </div>
     </div>
@@ -565,12 +566,14 @@
               Paste everything you have, call logs, emails, tickets, messages with zero formatting required. Debrief generates a complete brief: account timeline, open commitments, risk signals (sponsor changes, budget reviews, silent periods), sentiment read, and a suggested opening line tailored to where the account stands. Walk into any QBR, renewal, or escalation fully prepared.<br/><br/>
               <span class="proj-nar">What you track over time &mdash;</span>
               Save accounts between sessions. The AI sees the full history on the next paste the longer you use it on an account, the richer the brief. A weekly watchlist surfaces which saved accounts need attention.<br/><br/>
+              <span class="proj-nar">Technical choices &mdash;</span>
+              Six serverless functions on Vercel handle the full flow: brief generation, call summary, follow-up email, watchlist scoring and a Stripe webhook. The Groq API key stays server-side, never exposed to the client. Groq's llama-3.3-70b-versatile powers the reasoning where quality matters most. Supabase handles auth and account persistence. The Stripe webhook verifies its signature before unlocking paid access.<br/><br/>
               <span class="proj-nar proj-nar-accent">The promise &mdash;</span>
               Reduce drastically your time to prepare your call from 8h to just a few minutes.<br/><br/>
               Watch the onboarding video : on your right.
             </div>
             <div class="project-tech">
-              <span class="tech-pill">Groq API</span><span class="tech-pill">Supabase auth</span><span class="tech-pill">Stripe webhooks</span><span class="tech-pill">Vercel serverless</span>
+              <span class="tech-pill">Groq API</span><span class="tech-pill">llama-3.3-70b</span><span class="tech-pill">Supabase auth</span><span class="tech-pill">Stripe webhooks</span><span class="tech-pill">Vercel serverless</span>
             </div>
           </div>
           <div class="project-actions">
@@ -606,12 +609,14 @@
               Pulse tracks SaaS retail implementations from day one to post go-live. Every project gets a live health score across four dimensions, stakeholder alignment, delivery confidence, product adoption and timeline adherence. For multi-country and locations rollouts, each site runs its own independent timeline in parallel: France ahead, Poland behind, UK on track, visible at a glance without digging through spreadsheets.<br/><br/>
               <span class="proj-nar">Who it's for &mdash;</span>
               Senior PMs and Implementation Managers running complex SaaS deployments for international retail clients, 4 to 6 projects simultaneously, needing a single source of truth that doesn't require a 3-week onboarding.<br/><br/>
+              <span class="proj-nar">Technical choices &mdash;</span>
+              Six serverless functions on Vercel proxy every call to Groq and Supabase, so no API key ever reaches the client. A Supabase Postgres database holds the relational model: projects, sites, milestones, log entries and note sessions, each project linked to its own independent site timelines. Auth is token-based, every data call scoped to the logged-in user. Groq's llama3-8b-8192 powers the health-score reasoning.<br/><br/>
               <span class="proj-nar proj-nar-accent">What makes it different &mdash;</span>
               Open it, load a project, working in under 60 seconds. The four demo projects tell a complete story and will guide you on how it works.<br/><br/>
               Watch the onboarding video : on your right.
             </div>
             <div class="project-tech">
-              <span class="tech-pill">Groq API</span><span class="tech-pill">llama3-8b-8192</span><span class="tech-pill">GitHub Pages</span><span class="tech-pill">Vanilla JS</span>
+              <span class="tech-pill">Groq API</span><span class="tech-pill">Supabase</span><span class="tech-pill">Vercel serverless</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">REST API</span>
             </div>
           </div>
           <div class="project-actions">
@@ -804,6 +809,26 @@
 
   <hr style="border:none;border-top:1px solid var(--border);max-width:1100px;margin:0 auto;" />
 
+  <!-- ── TOOLS ── -->
+  <section id="tools">
+    <div class="page-wrap">
+      <div class="section-label reveal">Tools & Stack</div>
+      <div class="reveal" style="display:flex;flex-wrap:wrap;gap:10px;">
+        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius:6px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Claude</span>
+        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius:6px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">n8n</span>
+        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius:6px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">HubSpot</span>
+        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius:6px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Groq</span>
+        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius:6px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Vercel</span>
+        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius:6px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">GitHub</span>
+        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius:6px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Supabase</span>
+        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius:6px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Lucidchart</span>
+        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius:6px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Trello</span>
+      </div>
+    </div>
+  </section>
+
+  <hr style="border:none;border-top:1px solid var(--border);max-width:1100px;margin:0 auto;" />
+
   <!-- ── 6. CERTIFICATIONS ── -->
   <section id="certifications">
     <div class="page-wrap">
@@ -899,7 +924,7 @@
             <div class="faq-toggle">+</div>
           </div>
           <div class="faq-answer">
-            <div class="faq-a-text">Bilingual in English and French, Russian is my third language, currently in progress, Why Russian ? It's a 285M people market that has no bridge between the culture, mindset and language in this area of the world in full expansion. Why not take a local guy ? Good luck, if you believe they think like us and do business like we do. This is where I am the unicorn you need.</div>
+            <div class="faq-a-text">Bilingual in English and French, Russian is my third language, currently in progress, Why Russian ? It's a 285M people market that has no bridge between the culture, mindset and language in this area of the world in full expansion. Why not take a local guy ? Good luck, if you believe they think like us and do business like we do.</div>
           </div>
         </div>
 
