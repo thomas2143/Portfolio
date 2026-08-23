@@ -699,6 +699,35 @@
           </div>
         </div>
 
+        <!-- Meridian CA — RAG assistant -->
+        <div class="project-card reveal" data-roles="aitool automation">
+          <div>
+            <div class="project-meta"><span class="project-tag">Portfolio Project</span><span class="project-status">August 2026</span></div>
+            <div class="project-name">Meridian CA — Grounded RAG Assistant</div>
+            <div class="project-desc">
+              <span class="proj-nar">The problem &mdash;</span>
+              A pre-sales assistant over a martech vendor's knowledge base. Most RAG demos fail silently on one case: a question the base doesn't cover retrieves a chunk that sounds related, and the model answers anyway.<br/><br/>
+              <span class="proj-nar">The approach &mdash;</span>
+              Three permitted behaviours instead of two: answer when a chunk holds the fact, escalate when the boundary is documented but the fact isn't public (pricing, SLAs), refuse when nothing covers it. Every claim traced to a cited chunk, with all retrieval candidates and their distances shown in the interface.<br/><br/>
+              <span class="proj-nar">Technical choices &mdash;</span>
+              Gemini embeddings + Gemini Flash, Groq fallback on timeout or 5xx. No vector DB (44 chunks is an in-memory matrix), vectors pre-computed at build time, distance ceiling calibrated off the eval distribution rather than guessed. Embedding calls never fall back, because vectors from different models compare unrelated geometries.<br/><br/>
+              <span class="proj-nar proj-nar-accent">Evidence &mdash;</span>
+              45 labelled cases, 0.978 behaviour accuracy, 0.000 hallucination rate, $0.0024 per passing query. Measured, not estimated, with a retrieval-only ablation and a regression suite.
+            </div>
+            <div class="project-tech">
+              <span class="tech-pill">RAG</span><span class="tech-pill">Gemini embeddings</span><span class="tech-pill">Gemini Flash</span><span class="tech-pill">Groq fallback</span><span class="tech-pill">Eval harness</span><span class="tech-pill">Vercel serverless</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://meridian-chat-avkz.vercel.app/" target="_blank" rel="noopener" class="project-link" style="background:var(--accent2);border-color:var(--accent2);color:#000;font-size:13px;padding:10px 18px;font-weight:600;">
+              Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+            <a href="./meridian/index.html" class="project-link" style="background:var(--accent-glow);border-color:var(--border-accent);color:var(--accent);font-size:13px;padding:10px 18px;">
+              View the deck <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+          </div>
+        </div>
+
         <!-- Maison X — client audit -->
         <div class="project-card reveal" data-roles="consulting">
           <div>
