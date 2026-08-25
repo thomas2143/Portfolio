@@ -415,7 +415,7 @@
       <div class="hero-text">
         <div class="hero-eyebrow">Operator &amp; builder</div>
         <h1 class="hero-title">
-          I build and fix the bridges between<br/>where you are and <span class="accent-word">your ideal.</span>
+          I turn messy business processes into<br/>practical <span class="accent-word">systems, automations and AI solutions.</span>
         </h1>
         <p style="font-size:15px;color:var(--text-muted);line-height:1.6;margin-bottom:28px;font-weight:300;">I work with companies to map and redesign their business systems, build AI-powered automation, and implement revenue operations infrastructure — from lead routing to data flows and tooling.</p>
 
@@ -565,12 +565,12 @@
               <span class="proj-nar">What I built &mdash;</span>
               Paste everything you have, call logs, emails, tickets, messages with zero formatting required. Debrief generates a complete brief: account timeline, open commitments, risk signals (sponsor changes, budget reviews, silent periods), sentiment read, and a suggested opening line tailored to where the account stands. Walk into any QBR, renewal, or escalation fully prepared.<br/><br/>
               <span class="proj-nar">What you track over time &mdash;</span>
-              Save accounts between sessions. The AI sees the full history on the next paste the longer you use it on an account, the richer the brief. A weekly watchlist surfaces which saved accounts need attention.<br/><br/>
+              Save accounts between sessions. The AI sees the full history on the next paste, so the longer you use it on an account, the richer the brief. A weekly watchlist surfaces which saved accounts need attention.<br/><br/>
               <span class="proj-nar">Technical choices &mdash;</span>
               Six serverless functions on Vercel handle the full flow: brief generation, call summary, follow-up email, watchlist scoring and a Stripe webhook. The Groq API key stays server-side, never exposed to the client. Groq's llama-3.3-70b-versatile powers the reasoning where quality matters most. Supabase handles auth and account persistence. The Stripe webhook verifies its signature before unlocking paid access.<br/><br/>
               <span class="proj-nar proj-nar-accent">The promise &mdash;</span>
-              Reduce drastically your time to prepare your call from 8h to just a few minutes.<br/><br/>
-              Watch the onboarding video : on your right.
+              Drastically reduce the time you spend preparing a call, from 8 hours to just a few minutes.<br/><br/>
+              Watch the onboarding video on the right.
             </div>
             <div class="project-tech">
               <span class="tech-pill">Groq API</span><span class="tech-pill">llama-3.3-70b</span><span class="tech-pill">Supabase auth</span><span class="tech-pill">Stripe webhooks</span><span class="tech-pill">Vercel serverless</span>
@@ -606,14 +606,14 @@
               <span class="proj-nar">The problem &mdash;</span>
               When a retailer like Mango or Decathlon rolls out a new SaaS platform across multiple countries, it's 6 to 12 months of phases, stakeholders, integrations, and go-live pressures, all happening at once. Senior PMs live with one constant question: which of my projects is about to break and where do I stand in all of this?<br/><br/>
               <span class="proj-nar">What I built &mdash;</span>
-              Pulse tracks SaaS retail implementations from day one to post go-live. Every project gets a live health score across four dimensions, stakeholder alignment, delivery confidence, product adoption and timeline adherence. For multi-country and locations rollouts, each site runs its own independent timeline in parallel: France ahead, Poland behind, UK on track, visible at a glance without digging through spreadsheets.<br/><br/>
+              Pulse tracks SaaS retail implementations from day one to post go-live. Every project gets a live health score across four dimensions, stakeholder alignment, delivery confidence, product adoption and timeline adherence. For multi-country and multi-location rollouts, each site runs its own independent timeline in parallel: France ahead, Poland behind, UK on track, visible at a glance without digging through spreadsheets.<br/><br/>
               <span class="proj-nar">Who it's for &mdash;</span>
               Senior PMs and Implementation Managers running complex SaaS deployments for international retail clients, 4 to 6 projects simultaneously, needing a single source of truth that doesn't require a 3-week onboarding.<br/><br/>
               <span class="proj-nar">Technical choices &mdash;</span>
               Six serverless functions on Vercel proxy every call to Groq and Supabase, so no API key ever reaches the client. A Supabase Postgres database holds the relational model: projects, sites, milestones, log entries and note sessions, each project linked to its own independent site timelines. Auth is token-based, every data call scoped to the logged-in user. Groq's llama3-8b-8192 powers the health-score reasoning.<br/><br/>
               <span class="proj-nar proj-nar-accent">What makes it different &mdash;</span>
-              Open it, load a project, working in under 60 seconds. The four demo projects tell a complete story and will guide you on how it works.<br/><br/>
-              Watch the onboarding video : on your right.
+              Open it, load a project, and you're working in under 60 seconds. The four demo projects tell a complete story and guide you through how it works.<br/><br/>
+              Watch the onboarding video on the right.
             </div>
             <div class="project-tech">
               <span class="tech-pill">Groq API</span><span class="tech-pill">Supabase</span><span class="tech-pill">Vercel serverless</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">REST API</span>
@@ -642,7 +642,14 @@
           <div>
             <div class="project-meta"><span class="project-tag">SaaS Tool</span><span class="project-status">Live &mdash; AI-powered</span></div>
             <div class="project-name">Job Pipeline Tracker</div>
-            <div class="project-desc">A pipeline management tool built on the same logic as a B2B sales CRM. JD analysis, candidate-to-role fit scoring, stage tracking, and Excel/CSV import, structured around the idea that any high-volume process benefits from a disciplined pipeline view. Groq-powered analysis extracts role requirements and scores fit automatically.</div>
+            <div class="project-desc">
+              <span class="proj-nar">The problem &mdash;</span>
+              Job hunting at volume is a pipeline problem disguised as a motivation problem. Dozens of roles, each needing a real fit assessment, tracked across stages, with no structured way to compare them.<br/><br/>
+              <span class="proj-nar">What I built &mdash;</span>
+              A pipeline tool built on B2B sales CRM logic. Paste a job description, the system extracts the structured data (company, title, salary, location) and runs a full fit analysis: it matches every line of the CV against every requirement in the JD, produces a fit score, and names exactly what's strong and what's missing rather than a vague "good match". Stage tracking and Excel/CSV import round out the pipeline view.<br/><br/>
+              <span class="proj-nar">Technical choices &mdash;</span>
+              A single Vercel serverless function proxies Groq (llama-3.3-70b), keeping the API key server-side. Two modes share one endpoint: lightweight extraction for quick capture, full CV-vs-JD analysis when a real assessment is needed. Deterministic JSON output enforced by prompt, so the front end renders structured fields rather than free text.
+            </div>
             <div class="project-tech">
               <span class="tech-pill">Groq API</span><span class="tech-pill">llama-3.3-70b</span><span class="tech-pill">Vercel backend</span><span class="tech-pill">SheetJS</span>
             </div>
@@ -665,6 +672,35 @@
           </div>
         </div>
 
+        <!-- HubSpot Practicum — API integration -->
+        <div class="project-card reveal" data-roles="automation consulting">
+          <div>
+            <div class="project-meta"><span class="project-tag">API Integration</span><span class="project-status">Certified &mdash; 2026</span></div>
+            <div class="project-name">HubSpot Custom Objects — API Integration</div>
+            <div class="project-desc">
+              <span class="proj-nar">What it is &mdash;</span>
+              The practicum behind my "Integrating With HubSpot I" certification (scored 57/60). A Node/Express app that reads and writes HubSpot custom objects through the CRM REST API v3, not through the no-code UI.<br/><br/>
+              <span class="proj-nar">What it does &mdash;</span>
+              Full CRUD on a custom object: a homepage route fetches records via authenticated GET, a form route creates and updates them via POST and PATCH, rendered server-side with Pug templates. The private app token stays in environment variables, never in the repo.<br/><br/>
+              <span class="proj-nar">Why it matters &mdash;</span>
+              This is the proof behind the claim. When I say I can integrate HubSpot at the API level, this is the working code, not just a certificate. It's the same integration muscle the MiddleCorp routing architecture relies on.
+            </div>
+            <div class="project-tech">
+              <span class="tech-pill">Node.js</span><span class="tech-pill">Express</span><span class="tech-pill">HubSpot CRM API v3</span><span class="tech-pill">Axios</span><span class="tech-pill">Pug</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <!-- Quand le practicum sera déployé, décommenter ce bouton et remplacer l'URL :
+            <a href="URL_LIVE_ICI" target="_blank" rel="noopener" class="project-link" style="background:var(--accent2);border-color:var(--accent2);color:#000;font-weight:600;">
+              Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+            -->
+            <a href="https://github.com/thomas2143/thomas-hotton-iwh-i-practicum" target="_blank" rel="noopener" class="project-link">
+              View the code <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+          </div>
+        </div>
+
         <!-- MiddleCorp — technical challenge -->
         <div class="project-card reveal" data-roles="automation">
           <div>
@@ -676,7 +712,9 @@
               <span class="proj-nar">Part 1 &mdash; Lead Routing Architecture</span>
               Redesign the routing logic across four lead segments — Enterprise, SMB, Partners, and existing customers — with a clear decision order, a concrete HubSpot implementation, and defined failure handling for edge cases.<br/><br/>
               <span class="proj-nar">Part 2 &mdash; AI Agent Design</span>
-              Design a custom AI agent to triage complex inbound emails that keyword routing can't handle — covering trigger and data flow, the real system prompt, guardrails, evaluation metrics, off-switch criteria, and platform choice.
+              Design a custom AI agent to triage complex inbound emails that keyword routing can't handle — covering trigger and data flow, the real system prompt, guardrails, evaluation metrics, off-switch criteria, and platform choice.<br/><br/>
+              <span class="proj-nar proj-nar-accent">Trade-offs &mdash;</span>
+              I considered a second AI layer to verify each draft before human review, then rejected it: a verifier carries the same failure risk as the agent it checks, and every draft already requires human approval before sending. Adding it would create a false sense of security while adding cost and latency for no real gain. The human approval step is the real safety net, not another model.
             </div>
             <div class="project-tech">
               <span class="tech-pill">HubSpot</span><span class="tech-pill">AI Agent</span><span class="tech-pill">Llama 3.3 70B</span><span class="tech-pill">Prompt Engineering</span><span class="tech-pill">RevOps</span>
@@ -712,7 +750,9 @@
               <span class="proj-nar">Technical choices &mdash;</span>
               Gemini embeddings + Gemini Flash, Groq fallback on timeout or 5xx. No vector DB (44 chunks is an in-memory matrix), vectors pre-computed at build time, distance ceiling calibrated off the eval distribution rather than guessed. Embedding calls never fall back, because vectors from different models compare unrelated geometries.<br/><br/>
               <span class="proj-nar proj-nar-accent">Evidence &mdash;</span>
-              45 labelled cases, 0.978 behaviour accuracy, 0.000 hallucination rate, $0.0024 per passing query. Measured, not estimated, with a retrieval-only ablation and a regression suite.
+              45 labelled cases, 0.978 behaviour accuracy, 0.000 hallucination rate, $0.0024 per passing query. Measured, not estimated, with a retrieval-only ablation and a regression suite.<br/><br/>
+              <span class="proj-nar">Limits &mdash;</span>
+              One escalation case fails reproducibly: it refuses instead of routing. Left unpatched on purpose, tightening the prompt to fix it would convert legitimate refusals into escalations, trading a mild defect for a worse one. A named, understood failure is worth more than a 100% bought by tuning the prompt until the test set passes.
             </div>
             <div class="project-tech">
               <span class="tech-pill">RAG</span><span class="tech-pill">Gemini embeddings</span><span class="tech-pill">Gemini Flash</span><span class="tech-pill">Groq fallback</span><span class="tech-pill">Eval harness</span><span class="tech-pill">Vercel serverless</span>
@@ -785,7 +825,6 @@
               <li>Delivered structured repositioning plans covering multiple channels, brand identity, digital presence, social media and customer review systems with clear priorities and immediate actions</li>
               <li>Produced video content end-to-end (script, shoot, edit), growing client audiences by +2K subscribers in 3 months</li>
               <li>Built post-engagement roadmaps so every client could operate independently after collaboration ended</li>
-              <li>Built two functional AI tools, a pre-call brief generator using LLM prompt engineering for CS teams, and a multi-country SaaS implementation health tracker deployed independently of any third-party platform</li>
             </ul>
           </div>
         </div>
@@ -953,7 +992,7 @@
             <div class="faq-toggle">+</div>
           </div>
           <div class="faq-answer">
-            <div class="faq-a-text">Bilingual in English and French, Russian is my third language, currently in progress, Why Russian ? It's a 285M people market that has no bridge between the culture, mindset and language in this area of the world in full expansion. Why not take a local guy ? Good luck, if you believe they think like us and do business like we do.</div>
+            <div class="faq-a-text">Bilingual in English and French, with Russian in progress. Why Russian? It opens a 285M-person market where there's no real bridge in culture, mindset or language, and the region is expanding fast. Hiring locally sounds simpler until you assume the other side thinks and does business the way the West does. They don't, and that gap is exactly where I operate.</div>
           </div>
         </div>
 
@@ -963,7 +1002,7 @@
             <div class="faq-toggle">+</div>
           </div>
           <div class="faq-answer">
-            <div class="faq-a-text">I moved there by choice the environment works well for how I operate and having a Professional that works from a peace state is much more efficient for the company I am working with. OK but how Will I manage the time zones meetings etc ? This is my responsability, not yours and I have already a workflow for this but I will be happy to find the balance to satisfy both of us.</div>
+            <div class="faq-a-text">I moved there by choice. The environment works well for how I operate, and having a professional who works from a settled, focused state is more efficient for the company I work with. As for time zones, meetings and coordination: that's my responsibility, not yours. I already have a workflow for it, and I'm happy to find the balance that works for both of us.</div>
           </div>
         </div>
 
@@ -973,7 +1012,7 @@
             <div class="faq-toggle">+</div>
           </div>
           <div class="faq-answer">
-            <div class="faq-a-text">EOR fulltime &amp; Contractor full time long term are my ways to go. Both can be discussed. Why Contractor ? My local entity is compatible with most European and international setups. UTC+6 gives me natural overlap with EMEA mornings and EST afternoons or even with APAC hours. I'm reachable across both windows without adjusting my schedule.</div>
+            <div class="faq-a-text">EOR fulltime &amp; Contractor full time long term are my ways to go. Both can be discussed. Why Contractor? My local entity is compatible with most European and international setups. UTC+6 gives me natural overlap with EMEA mornings and EST afternoons or even with APAC hours. I'm reachable across both windows without adjusting my schedule.</div>
           </div>
         </div>
 
