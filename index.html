@@ -518,6 +518,38 @@
 
       <div class="projects-list">
 
+        <!-- TechDrive — selective ticket routing -->
+        <div class="project-card reveal" data-roles="aitool automation">
+          <div>
+            <div class="project-meta"><span class="project-tag" style="color:#ef4444;background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.35);">Technical Challenge</span><span class="project-status">August 2026</span></div>
+            <div class="project-name">TechDrive — Selective Ticket Routing with Statistical Guarantees</div>
+            <div class="project-desc">
+              <span class="proj-nar">The context &mdash;</span>
+              Astana Hub published a technology task for TechDrive LLC, an Almaty company: replace manual sorting of Service Desk tickets with an AI model that classifies and routes them. The brief asked for 95% routing accuracy, an 85% confidence gate, and analytics that would be 100% reliable.<br/><br/>
+              <span class="proj-nar">The insight &mdash;</span>
+              Routing is not one number, it's two that trade off: coverage (tickets routed without a human) and precision (routed tickets sent to the right team). "95% accuracy" isn't a spec until you say what coverage it leaves, and "100% reliable analytics" cannot exist, because the human fallback is the least accurate path in the system, the very source of the bad tags the brief wants fixed.<br/><br/>
+              <span class="proj-nar">What I built and measured &mdash;</span>
+              The threshold-setting mechanism, implemented end to end in Python with conformal risk control, then stress-tested. Naive threshold-tuning on held-out data misses its target in 67% of trials; risk control never does, at a cost of 4 to 9 points of coverage. Best achievable analytics quality is 95.2%, not 100%. Only 1 category in 43 has the data to carry its own guarantee.<br/><br/>
+              <span class="proj-nar proj-nar-accent">Limits &mdash;</span>
+              The encoder is TF-IDF, not the multilingual model production needs; the corpus is newswire, cleaner than real tickets. Two findings from an earlier draft turned out to be artifacts of bugs the test suite caught, one already recommended for the proposal. They're in the report because a measurement you cannot check is not a measurement.
+            </div>
+            <div class="project-tech">
+              <span class="tech-pill">Python</span><span class="tech-pill">Conformal Prediction</span><span class="tech-pill">Risk Control</span><span class="tech-pill">Drift Analysis</span><span class="tech-pill">pytest</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://thomas2143.github.io/TechDrive/" target="_blank" rel="noopener" class="project-link" style="background:var(--accent2);border-color:var(--accent2);color:#000;font-size:13px;padding:10px 18px;font-weight:600;">
+              Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+            <a href="./techdrive/index.html" class="project-link" style="background:var(--accent-glow);border-color:var(--border-accent);color:var(--accent);font-size:13px;padding:10px 18px;">
+              View the deck <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+            <a href="https://github.com/thomas2143/TechDrive" target="_blank" rel="noopener" class="project-link">
+              View the code <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+          </div>
+        </div>
+
         <!-- MiddleCorp — technical challenge -->
         <div class="project-card reveal" data-roles="automation">
           <div>
@@ -884,6 +916,13 @@
             <div class="cert-card"><div class="cert-name">Introduction to Claude Cowork</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/rc4jihf6ovpg" target="_blank" rel="noopener">rc4jihf6ovpg &nearr;</a></div></div>
             <div class="cert-card"><div class="cert-name">AI Fluency: Framework &amp; Foundations</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/o8xzov45ddvy" target="_blank" rel="noopener">o8xzov45ddvy &nearr;</a></div></div>
             <div class="cert-card"><div class="cert-name">Claude 101</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/wdakobvbjuz7" target="_blank" rel="noopener">wdakobvbjuz7 &nearr;</a></div></div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="cert-group-label">n8n</div>
+          <div class="certs-grid">
+            <div class="cert-card"><div class="cert-name">Essentials: Your First Workflows</div><div class="cert-issuer">n8n &mdash; Aug 2026</div><div class="cert-id">ID 21829600</div></div>
           </div>
         </div>
 
