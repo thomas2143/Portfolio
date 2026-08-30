@@ -86,16 +86,16 @@
   <div class="hero">
     <div class="hero-tag">Technical challenge · RevOps &amp; AI</div>
     <h1 class="hero-title">MiddleCorp — An AI-Driven<br/>Inbound Lead Strategy</h1>
-    <p class="hero-sub">THE CHALLENGE — Scenario & Objective<br/><br/>MiddleCorp is a fast-growing B Corp processing 50–500 inbound leads daily. The current HubSpot infrastructure is struggling to keep pace, resulting in misrouted enterprise leads, slow response times, and manual qualification bottlenecks.<br/><br/>Part 1 — Lead Routing Architecture<br/>Redesign the routing logic across four lead segments — Enterprise, SMB, Partners, and existing customers — with a clear decision order, a concrete HubSpot implementation, and defined failure handling for edge cases.<br/><br/>Part 2 — AI Agent Design<br/>Design a custom AI agent to triage complex inbound emails that keyword routing can't handle — covering trigger and data flow, the real system prompt, guardrails, evaluation metrics, off-switch criteria, and platform choice.</p>
+    <p class="hero-sub">THE CONTEXT — Scenario &amp; Objective<br/><br/>MiddleCorp is a fast-growing B Corp processing 50–500 inbound leads daily. The existing HubSpot setup can't keep pace: enterprise leads get misrouted, response times slip, qualification is a manual bottleneck. The brief had two parts, redesign the routing logic, and design an AI agent for the cases rules can't handle.<br/><br/>Part 1 — Lead Routing Architecture<br/>A decision flow across four segments (Partner, existing customer, Enterprise, SMB) with a strict order of evaluation, built entirely on native HubSpot mechanisms, no custom code, with defined handling for every edge case and a human feedback loop that feeds the agent's audit.<br/><br/>Part 2 — AI Agent Design<br/>A three-tier cascade (rule-based pre-filter → AI agent → human), the production pattern for cutting LLM cost without losing quality on hard cases. Covers trigger and data flow, the real system prompt, XML-delimited injection defense (adversarially tested, with a documented bypass and its fix), multilingual handling, guardrails, evaluation metrics, off-switch criteria and platform choice, ending in a working n8n prototype tested end-to-end with real API calls.</p>
     <div class="hero-pills">
-      <span class="pill pill-accent">HubSpot</span>
-      <span class="pill pill-accent">AI Agent Design</span>
-      <span class="pill pill-accent">Lead Routing</span>
-      <span class="pill">Llama 3.3 70B</span>
+      <span class="pill pill-accent">HubSpot API</span>
+      <span class="pill pill-accent">Tiered LLM routing</span>
+      <span class="pill pill-accent">n8n prototype</span>
+      <span class="pill">Injection defense</span>
       <span class="pill">Prompt Engineering</span>
       <span class="pill">RevOps</span>
-      <span class="pill">16 slides</span>
-      <span class="pill">July 2026</span>
+      <span class="pill">28 slides</span>
+      <span class="pill">August 2026</span>
     </div>
     <div class="hero-actions">
       <a href="../index.html#contact" class="btn-ghost">Let's talk</a>
