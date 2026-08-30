@@ -553,20 +553,22 @@
         <!-- MiddleCorp — technical challenge -->
         <div class="project-card reveal" data-roles="automation">
           <div>
-            <div class="project-meta"><span class="project-tag" style="color:#ef4444;background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.35);">Technical Challenge</span><span class="project-status">July 2026</span></div>
+            <div class="project-meta"><span class="project-tag" style="color:#ef4444;background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.35);">Technical Challenge</span><span class="project-status">August 2026</span></div>
             <div class="project-name">MiddleCorp — AI-Driven Inbound Lead Strategy</div>
             <div class="project-desc">
-              <span class="proj-nar">The challenge &mdash;</span>
-              MiddleCorp is a fast-growing B Corp processing 50–500 inbound leads daily. The current HubSpot infrastructure is struggling to keep pace, resulting in misrouted enterprise leads, slow response times, and manual qualification bottlenecks.<br/><br/>
-              <span class="proj-nar">Part 1 &mdash; Lead Routing Architecture</span>
-              Redesign the routing logic across four lead segments — Enterprise, SMB, Partners, and existing customers — with a clear decision order, a concrete HubSpot implementation, and defined failure handling for edge cases.<br/><br/>
-              <span class="proj-nar">Part 2 &mdash; AI Agent Design</span>
-              Design a custom AI agent to triage complex inbound emails that keyword routing can't handle — covering trigger and data flow, the real system prompt, guardrails, evaluation metrics, off-switch criteria, and platform choice.<br/><br/>
+              <span class="proj-nar">The context &mdash;</span>
+              MiddleCorp is a fast-growing B Corp processing 50–500 inbound leads daily. The existing HubSpot setup can't keep pace: enterprise leads get misrouted, response times slip, qualification is a manual bottleneck. The brief had two parts, redesign the routing logic, and design an AI agent for the cases rules can't handle.<br/><br/>
+              <span class="proj-nar">Part 1 — the routing architecture &mdash;</span>
+              A decision flow across four segments (Partner, existing customer, Enterprise, SMB) with a strict order of evaluation, built entirely on native HubSpot mechanisms, no custom code. Every edge case has defined handling: missing data, SLA breach, staff absence, plus a human feedback loop where a rep who disagrees with a routing decision tags the reason, which feeds the agent's audit.<br/><br/>
+              <span class="proj-nar">Part 2 — the AI agent &mdash;</span>
+              A three-tier cascade (rule-based pre-filter → AI agent → human), the established production pattern for cutting LLM cost without losing quality on hard cases. The agent only sees free-text, ambiguous, multi-intent emails. CRM data and untrusted email text are separated inside XML tags, a stronger injection defense than plain-language separation, hardened further after adversarial testing surfaced an XML-escaping bypass that I then fixed. Multilingual handling, budget tracking, guardrails, evaluation metrics and off-switch criteria are all specified, not hand-waved.<br/><br/>
               <span class="proj-nar proj-nar-accent">Trade-offs &mdash;</span>
-              I considered a second AI layer to verify each draft before human review, then rejected it: a verifier carries the same failure risk as the agent it checks, and every draft already requires human approval before sending. Adding it would create a false sense of security while adding cost and latency for no real gain. The human approval step is the real safety net, not another model.
+              I considered a second AI layer to verify each draft before human review, then rejected it: a verifier carries the same failure risk as the agent it checks, and every draft already requires human approval before sending. It would add cost and latency and a false sense of security for no real gain. The human approval step is the real safety net, not another model.<br/><br/>
+              <span class="proj-nar">Built under a real constraint &mdash;</span>
+              Mid-design, Groq announced the decommission of the originally validated model. The platform-choice section handles it head-on: a default provider for cost, EU-sovereignty fallbacks, a self-hosted last resort, and a direct answer to "why not HubSpot's native Breeze agent?". A working prototype was then built in n8n from the system prompt and tested end-to-end with real API calls, not simulated.
             </div>
             <div class="project-tech">
-              <span class="tech-pill">HubSpot</span><span class="tech-pill">AI Agent</span><span class="tech-pill">Llama 3.3 70B</span><span class="tech-pill">Prompt Engineering</span><span class="tech-pill">RevOps</span>
+              <span class="tech-pill">HubSpot API</span><span class="tech-pill">n8n</span><span class="tech-pill">Tiered LLM routing</span><span class="tech-pill">Prompt Engineering</span><span class="tech-pill">Injection defense</span><span class="tech-pill">RevOps</span>
             </div>
           </div>
           <div class="project-actions">
@@ -781,20 +783,21 @@
           </div>
         </div>
 
-        <!-- AgTech field report -->
-        <div class="project-card reveal" data-roles="consulting">
+        <!-- n8n Sales Data Pipeline — automation exercise -->
+        <div class="project-card reveal" data-roles="automation">
           <div>
-            <div class="project-meta"><span class="project-tag-sample">Field report</span><span class="project-status">Application &mdash; 2026</span></div>
-            <div class="project-name">90-Day Plan &mdash; Founding Growth &amp; Customer Associate</div>
-            <div class="project-desc">A case study of an onboarding in 3 phases for a Startup company in the Agtech industry.</div>
+            <div class="project-meta"><span class="project-tag-sample">Automation exercise</span><span class="project-status">2026</span></div>
+            <div class="project-name">Sales Data Pipeline &mdash; n8n Automation</div>
+            <div class="project-desc">An ETL workflow built in n8n: pull sales data over HTTP, split the orders, compute totals, then branch into two paths, aggregate all orders on one side, filter to delivered orders and summarize by region on the other, ending in a CSV export with report metadata. A straightforward proof of n8n automation: branching logic, data transformation, HTTP calls and structured output.</div>
             <div class="project-tech">
-              <span class="tech-pill">Outbound strategy</span><span class="tech-pill">Customer success</span><span class="tech-pill">Channel partnerships</span><span class="tech-pill">Content</span>
+              <span class="tech-pill">n8n</span><span class="tech-pill">HTTP requests</span><span class="tech-pill">Data transformation</span><span class="tech-pill">Branching logic</span><span class="tech-pill">CSV export</span>
             </div>
           </div>
           <div class="project-actions">
-            <a href="./agtech-field-report/index.html" class="project-link" style="background:var(--accent-glow);border-color:var(--border-accent);color:var(--accent);font-size:13px;padding:10px 18px;">
-              Read case study <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-            </a>
+            <div style="width:100%;">
+              <img src="./automation/sales-pipeline.png" alt="n8n workflow — Sales Data Pipeline" style="width:100%;border-radius:8px;border:1px solid var(--border);display:block;" />
+              <div style="font-size:10px;color:var(--text-dim);margin-top:6px;letter-spacing:0.06em;text-transform:uppercase;">Workflow — n8n</div>
+            </div>
           </div>
         </div>
 
