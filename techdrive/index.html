@@ -85,9 +85,11 @@
       <span class="proj-nar">The insight</span>
       Routing is not one number, it's two that trade against each other: coverage (tickets routed without a human) and precision (routed tickets sent to the right team). "95% accuracy" is not a specification until someone says what coverage it leaves. And "100% reliable analytics" cannot exist, because the human fallback path is the least accurate path in the system, the very source of the bad tags the brief wants to fix.<br/><br/>
       <span class="proj-nar">What I built and measured</span>
-      The threshold-setting mechanism, implemented end to end in Python with conformal risk control, then stress-tested. Naive threshold-tuning on held-out data misses its own target in 67% of trials; risk control never does, at a cost of 4 to 9 points of coverage. Best achievable analytics quality is 95.2%, not 100%. Only 1 category in 43 has enough calibration data to carry its own per-team guarantee.<br/><br/>
+      The threshold-setting mechanism, implemented end to end and stress-tested. Naive threshold-tuning on held-out data misses its own target in 67% of trials; risk control never does, at a cost of 4 to 9 points of coverage. Switching from a Hoeffding to an empirical Bernstein bound, and from Bonferroni to fixed sequence testing, were both decided by measurement rather than preference. Best achievable analytics quality is 95.2%, not 100%. Only 1 category in 53 has enough calibration data to carry its own per-team guarantee.<br/><br/>
+      <span class="proj-nar">The finding I didn't expect</span>
+      Two kinds of drift, and only one is visible. When the ticket mix shifts, coverage falls and the guarantee holds: the system pays in automation, not in mistakes. When the taxonomy is redefined, coverage doesn't move by a tenth of a point while the error rate triples. Nothing inside the system detects the second kind, which is what turned feedback capture from a refinement into a requirement.<br/><br/>
       <span class="proj-nar">The limits, in the report on purpose</span>
-      The encoder is TF-IDF, not the multilingual model production needs; the corpus is newswire, cleaner than real tickets. Two findings from an earlier draft turned out to be artifacts of bugs the test suite later caught, one already recommended for the proposal. They're in the report because a measurement you cannot check is not a measurement.
+      The encoder is TF-IDF, not the multilingual model production needs; the corpus is newswire, cleaner than real tickets. Three findings from an earlier draft turned out to be artifacts of bugs the test suite later caught, one already recommended for the proposal. They're in the report because a measurement you cannot check is not a measurement.
     </p>
     <div class="hero-pills">
       <span class="pill pill-accent">Python</span>
@@ -118,7 +120,7 @@
       <div class="stat-label">best achievable analytics quality (not 100%)</div>
     </div>
     <div>
-      <div class="stat-val">1 / 43</div>
+      <div class="stat-val">1 / 53</div>
       <div class="stat-label">categories with data for their own guarantee</div>
     </div>
     <div>
