@@ -48,10 +48,13 @@
     .nav-logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 22px; list-style: none; align-items: center; }
     .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 400; transition: color 0.2s; }
+    .nav-links a { position: relative; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -5px; height: 2px; background: var(--accent); border-radius: 4px; transform: scaleX(0); transform-origin: left; transition: transform 0.3s cubic-bezier(0.22,1,0.36,1); }
     .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
     .nav-links a.nav-current { color: var(--text); }
-    .nav-links a.nav-current::after { content: ''; display: block; height: 2px; background: var(--accent); border-radius: 4px; margin-top: 3px; animation: navUnderline 0.3s cubic-bezier(0.22,1,0.36,1); }
-    @keyframes navUnderline { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+    .nav-links a.nav-current::after { transform: scaleX(1); }
+    .nav-links a.nav-cta::after { display: none; }
     .nav-cta { background: var(--accent) !important; color: #FFF !important; padding: 7px 16px !important; border-radius: 8px; font-weight: 500 !important; font-size: 13px !important; transition: background 0.2s, transform 0.2s !important; }
     .nav-cta:hover { background: var(--accent-hover) !important; transform: translateY(-1px); }
     .nav-cta:active { transform: translateY(0) scale(0.97); }
@@ -123,6 +126,13 @@
     .project-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text); text-decoration: none; font-size: 12.5px; font-weight: 500; font-family: 'Space Grotesk', sans-serif; border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; transition: all 0.2s; white-space: nowrap; }
     .project-link:hover { border-color: var(--border-accent); color: var(--accent); background: var(--accent-glow); }
     .project-link:active { transform: scale(0.97); }
+    /* Button variants — one colour per action type, identical across all cards */
+    .project-link.pl-live { background: var(--accent2); border-color: var(--accent2); color: #000; font-weight: 600; }
+    .project-link.pl-live:hover { background: #E08C00; border-color: #E08C00; color: #000; }
+    .project-link.pl-deck { background: var(--accent-glow); border-color: var(--border-accent); color: var(--accent); }
+    .project-link.pl-deck:hover { background: var(--accent-glow-hover); color: var(--accent); }
+    .project-link.pl-code { background: transparent; border-color: var(--border); color: var(--text-muted); }
+    .project-link.pl-code:hover { border-color: var(--border-accent); color: var(--accent); background: var(--accent-glow); }
     .video-pending { width: 100%; aspect-ratio: 16/9; border: 1px dashed var(--text-dim); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: var(--text-dim); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
 
     /* ── VIDEO EMBED ── */
@@ -358,10 +368,20 @@
       .metric-card { padding: 22px 18px; }
       .certs-grid { grid-template-columns: 1fr; }
     }
+    /* TOOLS */
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .tool-group { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; transition: border-color 0.25s, transform 0.25s; }
+    .tool-group:hover { border-color: var(--border-accent); transform: translateY(-2px); }
+    .tool-group-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .tool-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tool-chip { font-size: 13px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: var(--text); background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 6px 13px; border-radius: 8px; transition: all 0.2s; }
+    .tool-group:hover .tool-chip { border-color: rgba(75,131,240,0.25); }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal-left { opacity: 1; transform: none; transition: none; }
       .hero-photo, .hero-eyebrow, .hero-title, .hero-props, .hero-how, .hero-actions { animation: none; opacity: 1; transform: none; }
-      .nav-links a.nav-current::after { animation: none; }
+      .nav-links a::after { transition: none; }
+      .tool-group:hover { transform: none; }
       .btn-primary:active, .btn-ghost:active, .project-link:active, .role-btn:active, .nav-cta:active, .faq-item:active { transform: none; }
     }
 
@@ -559,13 +579,13 @@
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://thomas2143.github.io/TechDrive/" target="_blank" rel="noopener" class="project-link" style="background:var(--accent2);border-color:var(--accent2);color:#000;font-size:13px;padding:10px 18px;font-weight:600;">
+            <a href="https://thomas2143.github.io/TechDrive/" target="_blank" rel="noopener" class="project-link pl-live">
               Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
-            <a href="./techdrive/index.html" class="project-link" style="background:var(--accent-glow);border-color:var(--border-accent);color:var(--accent);font-size:13px;padding:10px 18px;">
+            <a href="./techdrive/index.html" class="project-link pl-deck">
               View the deck <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
-            <a href="https://github.com/thomas2143/TechDrive" target="_blank" rel="noopener" class="project-link">
+            <a href="https://github.com/thomas2143/TechDrive" target="_blank" rel="noopener" class="project-link pl-code">
               View the code <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
           </div>
@@ -593,7 +613,7 @@
             </div>
           </div>
           <div class="project-actions">
-            <a href="./middlecorp/index.html" class="project-link" style="background:var(--accent-glow);border-color:var(--border-accent);color:var(--accent);font-size:13px;padding:10px 18px;">
+            <a href="./middlecorp/index.html" class="project-link pl-deck">
               View the deck <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
             <div class="video-embed-wrap">
@@ -631,10 +651,10 @@
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://meridian-chat-avkz.vercel.app/" target="_blank" rel="noopener" class="project-link" style="background:var(--accent2);border-color:var(--accent2);color:#000;font-size:13px;padding:10px 18px;font-weight:600;">
+            <a href="https://meridian-chat-avkz.vercel.app/" target="_blank" rel="noopener" class="project-link pl-live">
               Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
-            <a href="./meridian/index.html" class="project-link" style="background:var(--accent-glow);border-color:var(--border-accent);color:var(--accent);font-size:13px;padding:10px 18px;">
+            <a href="./meridian/index.html" class="project-link pl-deck">
               View the deck <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
           </div>
@@ -663,8 +683,8 @@
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://call-prep-uokh.vercel.app/landing.html" target="_blank" rel="noopener" class="project-link">Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
-            <a href="./debrief/index.html" class="project-link" style="background:var(--accent-glow);border-color:var(--border-accent);color:var(--accent);">
+            <a href="https://call-prep-uokh.vercel.app/landing.html" target="_blank" rel="noopener" class="project-link pl-live">Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            <a href="./debrief/index.html" class="project-link pl-deck">
               Read case study <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
             <div class="video-embed-wrap">
@@ -706,7 +726,7 @@
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://thomas2143.github.io/pulse/app.html" target="_blank" rel="noopener" class="project-link">Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            <a href="https://thomas2143.github.io/pulse/app.html" target="_blank" rel="noopener" class="project-link pl-live">Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             <div class="video-embed-wrap">
               <iframe
                 src="https://www.youtube.com/embed/m5qNYODPGkI"
@@ -741,7 +761,7 @@
             </div>
           </div>
           <div class="project-actions">
-            <a href="https://job-pipeline-chi.vercel.app" target="_blank" rel="noopener" class="project-link">Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            <a href="https://job-pipeline-chi.vercel.app" target="_blank" rel="noopener" class="project-link pl-live">Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             <div class="video-embed-wrap">
               <iframe
                 src="https://www.youtube.com/embed/Ykv3_sDhQFc"
@@ -777,11 +797,11 @@
           </div>
           <div class="project-actions">
             <!-- Quand le practicum sera déployé, décommenter ce bouton et remplacer l'URL :
-            <a href="URL_LIVE_ICI" target="_blank" rel="noopener" class="project-link" style="background:var(--accent2);border-color:var(--accent2);color:#000;font-weight:600;">
+            <a href="URL_LIVE_ICI" target="_blank" rel="noopener" class="project-link pl-live">
               Try it live <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
             -->
-            <a href="https://github.com/thomas2143/thomas-hotton-iwh-i-practicum" target="_blank" rel="noopener" class="project-link">
+            <a href="https://github.com/thomas2143/thomas-hotton-iwh-i-practicum" target="_blank" rel="noopener" class="project-link pl-code">
               View the code <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
           </div>
@@ -798,7 +818,7 @@
             </div>
           </div>
           <div class="project-actions">
-            <a href="./maison-x/index.html" class="project-link" style="background:var(--accent-glow);border-color:var(--border-accent);color:var(--accent);font-size:13px;padding:10px 18px;">
+            <a href="./maison-x/index.html" class="project-link pl-deck">
               Read case study <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
           </div>
@@ -905,17 +925,32 @@
   <!-- ── TOOLS ── -->
   <section id="tools">
     <div class="page-wrap">
-      <div class="section-label reveal">Tools & Stack</div>
-      <div class="reveal" style="display:flex;flex-wrap:wrap;gap:10px;">
-        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius: 8px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Claude</span>
-        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius: 8px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">n8n</span>
-        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius: 8px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">HubSpot</span>
-        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius: 8px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Groq</span>
-        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius: 8px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Vercel</span>
-        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius: 8px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">GitHub</span>
-        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius: 8px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Supabase</span>
-        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius: 8px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Lucidchart</span>
-        <span style="font-size:13px;font-family:'Space Grotesk',sans-serif;font-weight:500;color:var(--text);background:var(--bg-card);border:1px solid var(--border);padding:8px 16px;border-radius: 8px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--border-accent)'" onmouseout="this.style.borderColor='var(--border)'">Trello</span>
+      <div class="section-label reveal">Tools &amp; Stack</div>
+      <div class="tools-grid reveal" style="margin-top:8px;">
+        <div class="tool-group">
+          <div class="tool-group-label">AI &amp; models</div>
+          <div class="tool-chips">
+            <span class="tool-chip">Claude</span><span class="tool-chip">Groq</span>
+          </div>
+        </div>
+        <div class="tool-group">
+          <div class="tool-group-label">Automation &amp; CRM</div>
+          <div class="tool-chips">
+            <span class="tool-chip">n8n</span><span class="tool-chip">HubSpot</span>
+          </div>
+        </div>
+        <div class="tool-group">
+          <div class="tool-group-label">Build &amp; deploy</div>
+          <div class="tool-chips">
+            <span class="tool-chip">Vercel</span><span class="tool-chip">GitHub</span><span class="tool-chip">Supabase</span>
+          </div>
+        </div>
+        <div class="tool-group">
+          <div class="tool-group-label">Design &amp; ops</div>
+          <div class="tool-chips">
+            <span class="tool-chip">Lucidchart</span><span class="tool-chip">Trello</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -958,6 +993,7 @@
         <div class="reveal">
           <div class="cert-group-label">HubSpot Academy</div>
           <div class="certs-grid">
+            <div class="cert-card"><div class="cert-name">Integrating With HubSpot I: Foundations</div><div class="cert-issuer">HubSpot &mdash; Aug 2026</div><div class="cert-id">ID g46w7sxy</div></div>
             <div class="cert-card"><div class="cert-name">Revenue Operations</div><div class="cert-issuer">HubSpot &mdash; Jun 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/hlzmj1xw/en/1/thomas-hotton/revenue-operations" target="_blank" rel="noopener">hlzmj1xw &nearr;</a></div></div>
             <div class="cert-card"><div class="cert-name">Sales Hub Software</div><div class="cert-issuer">HubSpot &mdash; May 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/gfhfg9sh/en/1/thomas-hotton/hubspot-sales-hub-software" target="_blank" rel="noopener">de5404c5527a &nearr;</a></div></div>
             <div class="cert-card"><div class="cert-name">Service Hub Software</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/kyyqnp8c/en/1/thomas-hotton/service-hub-software" target="_blank" rel="noopener">5e8bc38882c5 &nearr;</a></div></div>
@@ -1084,7 +1120,6 @@
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;margin-bottom:28px;">
             <span style="font-size:12px;color:var(--text-muted);background:var(--bg-card);border:1px solid var(--border);padding:4px 10px;border-radius:4px;">📍 UTC+6 — EMEA &amp; EST overlap</span>
             <span style="font-size:12px;color:var(--text-muted);background:var(--bg-card);border:1px solid var(--border);padding:4px 10px;border-radius:4px;">🗣 FR / EN / RU in progress</span>
-            <span style="font-size:12px;color:var(--text-muted);background:var(--bg-card);border:1px solid var(--border);padding:4px 10px;border-radius:4px;">📅 Available within 3 weeks</span>
             <span style="font-size:12px;color:var(--text-muted);background:var(--bg-card);border:1px solid var(--border);padding:4px 10px;border-radius:4px;">🏢 EOR &amp; full-time available</span>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;">
