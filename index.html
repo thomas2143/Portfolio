@@ -103,7 +103,7 @@
     .advantage-card:hover { background: var(--bg-card-hover); }
     .advantage-card-featured { background: var(--bg-card); border: 1px solid var(--border-accent) !important; box-shadow: inset 0 0 40px rgba(37,99,235,0.05); padding: 36px 32px; transition: background 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; gap: 0; }
     .advantage-card-featured:hover { background: var(--bg-card-hover); }
-    .advantage-icon { font-size: 26px; margin-bottom: 16px; display: block; }
+    .advantage-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--accent-glow); border: 1px solid var(--border-accent); display: inline-flex; align-items: center; justify-content: center; color: var(--accent); margin-bottom: 18px; }
     .advantage-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 10px; }
     .advantage-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px; }
     .advantage-rule { width: 28px; height: 1px; background: var(--accent); opacity: 0.35; margin-bottom: 16px; }
@@ -121,6 +121,19 @@
     .project-name { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 10px; transition: color 0.2s; }
     .project-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; max-width: 520px; }
     .project-tech { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+    /* KEY METRICS BAR + EXPANDABLE BREAKDOWN */
+    .proj-metrics { display: flex; flex-wrap: wrap; gap: 22px; margin: 6px 0 16px; }
+    .proj-metric { display: flex; flex-direction: column; gap: 2px; }
+    .proj-metric-val { font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700; color: var(--accent2); letter-spacing: -0.02em; line-height: 1.1; }
+    .proj-metric-lbl { font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.02em; max-width: 150px; line-height: 1.3; }
+    .proj-summary { font-size: 14.5px; color: var(--text-muted); line-height: 1.65; }
+    .proj-breakdown { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1); }
+    .proj-breakdown.open { max-height: 4000px; }
+    .proj-breakdown-inner { padding-top: 16px; }
+    .proj-toggle { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; background: none; border: none; cursor: pointer; color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 12.5px; font-weight: 500; padding: 0; transition: gap 0.2s; }
+    .proj-toggle:hover { gap: 9px; }
+    .proj-toggle svg { transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .proj-toggle.open svg { transform: rotate(180deg); }
     .tech-pill { font-size: 10.5px; color: var(--text-muted); background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 3px 9px; border-radius: 4px; font-family: 'Space Grotesk', sans-serif; }
     .project-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; min-width: 160px; }
     .project-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text); text-decoration: none; font-size: 12.5px; font-weight: 500; font-family: 'Space Grotesk', sans-serif; border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; transition: all 0.2s; white-space: nowrap; }
@@ -230,8 +243,14 @@
     /* ── CERTIFICATIONS ── */
     .certs-section { display: flex; flex-direction: column; gap: 32px; }
     .cert-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; }
-    .certs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
-    .cert-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; transition: background 0.2s; }
+    .cert-card.cert-hidden { display: none; }
+    .certs-grid.certs-open .cert-card.cert-hidden { display: block; }
+    .cert-more { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; background: none; border: none; cursor: pointer; color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500; padding: 0; transition: gap 0.2s; }
+    .cert-more:hover { gap: 9px; }
+    .cert-more svg { transition: transform 0.3s ease; }
+    .cert-more.open svg { transform: rotate(180deg); }
+    .certs-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+    .cert-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 15px 16px; transition: background 0.2s; }
     .cert-card:hover { background: var(--bg-card-hover); }
     .cert-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 5px; line-height: 1.4; }
     .cert-issuer { font-size: 12px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
@@ -270,6 +289,47 @@
       gap: 16px;
       margin-bottom: 40px;
       animation: heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.48s both;
+    }
+    .hero-tree {
+      margin-bottom: 40px;
+      animation: heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.48s both;
+    }
+    .hero-tree-head {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-accent);
+      border-radius: 10px;
+      padding: 11px 18px;
+      margin-bottom: 6px;
+    }
+    .hero-tree-head-icon { color: var(--accent); display: flex; }
+    .hero-tree-head-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .hero-tree-branches {
+      margin-left: 18px;
+      padding-left: 24px;
+      padding-top: 14px;
+      border-left: 1px solid var(--border-accent);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .hero-tree-branches .hero-prop { position: relative; }
+    .hero-tree-branches .hero-prop::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 16px;
+      width: 18px;
+      height: 1px;
+      background: var(--border-accent);
     }
     .hero-prop {
       display: flex;
@@ -356,7 +416,8 @@
       .advantages-grid { grid-template-columns: 1fr; }
       .project-card { grid-template-columns: 1fr; padding: 24px 20px; }
       .project-actions { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
-      .certs-grid { grid-template-columns: 1fr 1fr; }
+      .certs-grid { grid-template-columns: repeat(3,1fr); }
+      .tools-grid { grid-template-columns: 1fr 1fr; }
       .timeline::before { display: none; }
       .timeline-item { grid-template-columns: 1fr; gap: 6px; }
       .timeline-period { text-align: left; }
@@ -369,7 +430,7 @@
       .certs-grid { grid-template-columns: 1fr; }
     }
     /* TOOLS */
-    .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; align-items: start; }
     .tool-group { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; transition: border-color 0.25s, transform 0.25s; }
     .tool-group:hover { border-color: var(--border-accent); transform: translateY(-2px); }
     .tool-group-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
@@ -379,7 +440,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal-left { opacity: 1; transform: none; transition: none; }
-      .hero-photo, .hero-eyebrow, .hero-title, .hero-props, .hero-how, .hero-actions { animation: none; opacity: 1; transform: none; }
+      .hero-photo, .hero-eyebrow, .hero-title, .hero-props, .hero-tree, .hero-how, .hero-actions { animation: none; opacity: 1; transform: none; }
       .nav-links a::after { transition: none; }
       .tool-group:hover { transform: none; }
       .btn-primary:active, .btn-ghost:active, .project-link:active, .role-btn:active, .nav-cta:active, .faq-item:active { transform: none; }
@@ -422,33 +483,41 @@
         </h1>
         <p style="font-size:15px;color:var(--text-muted);line-height:1.6;margin-bottom:28px;font-weight:300;animation:heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.38s both;">I work with companies to map and redesign their business systems, build AI-powered automation, and implement revenue operations infrastructure, from lead routing to data flows and tooling.</p>
 
-    <div class="hero-props-label">The roles I am available for</div>
-    <div class="hero-props">
-      <div class="hero-prop">
-        <div class="hero-prop-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M2 8h20"/></svg>
+    <div class="hero-props-label">The role I'm available for</div>
+    <div class="hero-tree">
+      <div class="hero-tree-head">
+        <div class="hero-tree-head-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         </div>
-        <div>
-          <div class="hero-prop-title">Business Systems & AI Analyst</div>
-          <div class="hero-prop-desc">I map how systems actually work, find the gap between that and how they should work, then design the architecture that closes it, HubSpot, AI agents, data flows, failure handling included.</div>
-        </div>
+        <div class="hero-tree-head-title">AI Automation Architect</div>
       </div>
-      <div class="hero-prop">
-        <div class="hero-prop-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      <div class="hero-tree-branches">
+        <div class="hero-prop">
+          <div class="hero-prop-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M2 8h20"/></svg>
+          </div>
+          <div>
+            <div class="hero-prop-title">Business Systems &amp; AI Analyst</div>
+            <div class="hero-prop-desc">I map how systems actually work, find the gap between that and how they should work, then design the architecture that closes it, HubSpot, AI agents, data flows, failure handling included.</div>
+          </div>
         </div>
-        <div>
-          <div class="hero-prop-title">AI Builder</div>
-          <div class="hero-prop-desc">I build systems that run, not prototypes that sit in a repo. From prompt engineering to production deployment, with real users and real data.</div>
+        <div class="hero-prop">
+          <div class="hero-prop-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div>
+            <div class="hero-prop-title">AI Builder &amp; Architect</div>
+            <div class="hero-prop-desc">I build systems that run, not prototypes that sit in a repo. From prompt engineering, RAG and AI agents to production deployment, with real users and real data.</div>
+          </div>
         </div>
-      </div>
-      <div class="hero-prop">
-        <div class="hero-prop-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <div>
-          <div class="hero-prop-title">AI Automation & RevOps</div>
-          <div class="hero-prop-desc">I design and implement the revenue infrastructure that makes go-to-market teams faster, lead routing, pipeline visibility, AI triage, and the reporting that tells you if it's working.</div>
+        <div class="hero-prop">
+          <div class="hero-prop-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div class="hero-prop-title">AI Automation &amp; RevOps</div>
+            <div class="hero-prop-desc">I design and implement the revenue infrastructure that makes go-to-market teams faster, lead routing, pipeline visibility, AI triage, and the reporting that tells you if it's working.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -482,31 +551,31 @@
     <div class="page-wrap">
       <div class="section-label reveal">What sets me apart</div>
       <div class="advantages-grid" style="grid-template-columns: repeat(2,1fr);">
-        <div class="advantage-card reveal">
-          <span class="advantage-icon">🧠</span>
-          <div class="advantage-title">Coaching</div>
-          <div class="advantage-desc">10+ years as a coaching client, ICF Level 2 in progress. The skill that makes stakeholder work and difficult conversations easier.</div>
-          <div class="advantage-rule"></div>
-          <div class="advantage-proof">Ten years as a coaching client, ICF Level 2 in progress. I have internalized how to read people, surface what is actually blocking a situation, and guide a conversation toward a decision, without imposing a direction.</div>
+        <div class="advantage-card advantage-card-featured reveal" style="grid-column: 1 / -1;">
+          <span class="advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+          <div class="advantage-title" style="color:var(--accent);">Operator instinct</div>
+          <div class="advantage-desc">Three and a half years inside real business operations, not a lab. I read the business behind the brief before touching a solution.</div>
+          <div class="advantage-rule" style="background:var(--accent);opacity:0.6;"></div>
+          <div class="advantage-proof">Most analysts deliver a diagnosis. I read the business behind the brief: process gaps, misaligned incentives, what the data doesn't say out loud. Then I build the system that fixes it, and I know what "adopted" looks like because I've been the one using these tools under pressure.</div>
         </div>
         <div class="advantage-card reveal" style="transition-delay:90ms;">
-          <span class="advantage-icon">🎬</span>
+          <span class="advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></span>
+          <div class="advantage-title">Reading people &amp; stakeholders</div>
+          <div class="advantage-desc">A decade of coaching practice, ICF Level 2 in progress, turned into a working skill.</div>
+          <div class="advantage-rule"></div>
+          <div class="advantage-proof">I read people fast: what's actually blocking a decision, what's said between the lines, where a stakeholder is really hesitating. It's what lets me sit with a business client, understand the real problem behind the brief, and guide the conversation toward a decision, the exact skill that turns a vague ask into a solution someone will actually adopt.</div>
+        </div>
+        <div class="advantage-card reveal" style="transition-delay:180ms;">
+          <span class="advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></span>
           <div class="advantage-title">Production</div>
-          <div class="advantage-desc">ESRA film school trained. I can produce the walkthroughs, demos and explainer content that make a system actually get adopted.</div>
+          <div class="advantage-desc">ESRA film school trained, with a professional video background.</div>
           <div class="advantage-rule"></div>
           <div class="advantage-proof">Most operators know the system. Few know how to make it land with the people using it. I can build client-facing content solo: walkthroughs, demos, explainer videos. How you communicate a solution is part of whether it gets adopted.</div>
         </div>
-        <div class="advantage-card advantage-card-featured reveal" style="transition-delay:180ms;">
-          <span class="advantage-icon">🔍</span>
-          <div class="advantage-title" style="color:var(--accent);">Operator instinct</div>
-          <div class="advantage-desc">I help clients get genuinely better off, not just retained. Audits, health scoring, customer journey analysis, I reframe the problem before solving it.</div>
-          <div class="advantage-rule" style="background:var(--accent);opacity:0.6;"></div>
-          <div class="advantage-proof">Most analysts deliver a diagnosis. I read the business behind the brief: process gaps, misaligned incentives, what the data doesn't say out loud. Then I build the system that fixes it.</div>
-        </div>
-        <div class="advantage-card reveal" style="transition-delay:270ms;">
-          <span class="advantage-icon">🌍</span>
+        <div class="advantage-card reveal" style="transition-delay:270ms;grid-column: 1 / -1;">
+          <span class="advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
           <div class="advantage-title">Cross-cultural fluency</div>
-          <div class="advantage-desc">Lived and worked across 4 countries, relocating to Central Asia. I read cross-cultural business dynamics that trip up people who assume one universal playbook.</div>
+          <div class="advantage-desc">Lived and worked across 4 countries, relocating to Central Asia.</div>
           <div class="advantage-rule"></div>
           <div class="advantage-proof">Communication styles aren't universal. Belgian clients expect structure and clear commitments; Moroccan counterparts put the relationship before the schedule; in Russian-speaking business culture, silence isn't a dead end and information is rarely offered unprompted. Knowing which mode you're in changes how you run a negotiation or a kickoff.</div>
         </div>
@@ -523,7 +592,7 @@
       <div class="metrics-grid reveal">
         <div class="metric-card">
           <div class="metric-value"><span class="mv-accent counter" data-target="194">194</span><span class="mv-accent">% &amp; 187%</span></div>
-          <div class="metric-label">Peak NRR on 2 portfolios<br/>(11-month period each)</div>
+          <div class="metric-label">NRR on B2B portfolios<br/>in 11 months each</div>
         </div>
         <div class="metric-card">
           <div class="metric-value"><span class="mv-accent">+&euro;</span><span class="counter" data-target="400">400</span><span>K</span></div>
@@ -535,7 +604,7 @@
         </div>
         <div class="metric-card">
           <div class="metric-value"><span class="mv-accent counter" data-target="5">5</span></div>
-          <div class="metric-label">AI tools deployed<br/>live users, Stripe integrated</div>
+          <div class="metric-label">AI tools deployed</div>
         </div>
       </div>
     </div>
@@ -562,7 +631,18 @@
           <div>
             <div class="project-meta"><span class="project-tag" style="color:var(--danger);background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.35);">Tender response</span><span class="project-status">August 2026</span></div>
             <div class="project-name">TechDrive — Selective Ticket Routing with Statistical Guarantees</div>
-            <div class="project-desc">
+            <div class="proj-metrics">
+              <div class="proj-metric"><span class="proj-metric-val">67% &rarr; 0%</span><span class="proj-metric-lbl">target-miss rate: naive tuning vs risk control</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">95.2%</span><span class="proj-metric-lbl">best achievable analytics quality, not 100%</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">12</span><span class="proj-metric-lbl">tests targeting the report's claims</span></div>
+            </div>
+            <div class="proj-summary">
+              Astana Hub's technology task for TechDrive LLC, an Almaty company: replace manual Service Desk ticket sorting with an AI classifier hitting 95% accuracy and "100% reliable" analytics. I built the threshold-setting mechanism with conformal risk control and stress-tested it, proving what the brief actually left unspecified, and that its "100% reliable" target was mathematically impossible.
+            </div>
+            <button class="proj-toggle" onclick="toggleBreakdown(this)">Read the full breakdown <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="proj-breakdown">
+              <div class="proj-breakdown-inner">
+              <div class="project-desc">
               <span class="proj-nar">The context &mdash;</span>
               Astana Hub published a technology task for TechDrive LLC, an Almaty company: replace manual sorting of Service Desk tickets with an AI model that classifies and routes them. The brief asked for 95% routing accuracy, an 85% confidence gate, and analytics that would be 100% reliable.<br/><br/>
               <span class="proj-nar">The insight &mdash;</span>
@@ -573,6 +653,8 @@
               Two kinds of drift, and only one is visible. When the ticket mix shifts, coverage falls and the guarantee holds: the system pays in automation, not in mistakes. When the taxonomy is redefined, coverage doesn't move by a tenth of a point while the error rate triples. Nothing inside the system detects the second kind, which is what turned feedback capture from a refinement into a requirement.<br/><br/>
               <span class="proj-nar">Limits &mdash;</span>
               A measurement you cannot check is not a measurement. The encoder is TF-IDF, not the multilingual model production needs; the corpus is newswire, cleaner than real tickets. Three findings from an earlier draft turned out to be artifacts of bugs the test suite caught, one already recommended for the proposal. They're in the report for the same reason.
+              </div>
+              </div>
             </div>
             <div class="project-tech">
               <span class="tech-pill">Python</span><span class="tech-pill">Conformal Prediction</span><span class="tech-pill">Risk Control</span><span class="tech-pill">Drift Analysis</span><span class="tech-pill">pytest</span>
@@ -596,7 +678,18 @@
           <div>
             <div class="project-meta"><span class="project-tag" style="color:var(--danger);background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.35);">Technical Challenge</span><span class="project-status">August 2026</span></div>
             <div class="project-name">MiddleCorp — AI-Driven Inbound Lead Strategy</div>
-            <div class="project-desc">
+            <div class="proj-metrics">
+              <div class="proj-metric"><span class="proj-metric-val">50–500</span><span class="proj-metric-lbl">inbound leads/day routed across 4 segments</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">3-tier</span><span class="proj-metric-lbl">cascade: rules &rarr; AI agent &rarr; human</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">Live</span><span class="proj-metric-lbl">n8n prototype, real API calls end to end</span></div>
+            </div>
+            <div class="proj-summary">
+              A response to a real technical challenge: MiddleCorp's HubSpot setup misroutes leads and bottlenecks on manual qualification. I redesigned the routing across four segments on native HubSpot, then designed an AI agent for the ambiguous emails rules can't handle, with injection defense, an off-switch, and a working n8n prototype tested against live APIs.
+            </div>
+            <button class="proj-toggle" onclick="toggleBreakdown(this)">Read the full breakdown <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="proj-breakdown">
+              <div class="proj-breakdown-inner">
+              <div class="project-desc">
               <span class="proj-nar">The context &mdash;</span>
               MiddleCorp is a fast-growing B Corp processing 50–500 inbound leads daily. The existing HubSpot setup can't keep pace: enterprise leads get misrouted, response times slip, qualification is a manual bottleneck. The brief had two parts, redesign the routing logic, and design an AI agent for the cases rules can't handle.<br/><br/>
               <span class="proj-nar">Part 1 — the routing architecture &mdash;</span>
@@ -607,6 +700,8 @@
               I considered a second AI layer to verify each draft before human review, then rejected it: a verifier carries the same failure risk as the agent it checks, and every draft already requires human approval before sending. It would add cost and latency and a false sense of security for no real gain. The human approval step is the real safety net, not another model.<br/><br/>
               <span class="proj-nar">Built under a real constraint &mdash;</span>
               Mid-design, Groq announced the decommission of the originally validated model. The platform-choice section handles it head-on: a default provider for cost, EU-sovereignty fallbacks, a self-hosted last resort, and a direct answer to "why not HubSpot's native Breeze agent?". A working prototype was then built in n8n from the system prompt and tested end-to-end with real API calls, not simulated.
+              </div>
+              </div>
             </div>
             <div class="project-tech">
               <span class="tech-pill">HubSpot API</span><span class="tech-pill">n8n</span><span class="tech-pill">Tiered LLM routing</span><span class="tech-pill">Prompt Engineering</span><span class="tech-pill">Injection defense</span><span class="tech-pill">RevOps</span>
@@ -616,12 +711,6 @@
             <a href="./middlecorp/index.html" class="project-link pl-deck">
               View the deck <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
-            <div class="video-embed-wrap">
-              <div class="video-pending">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-                <span>Video coming soon</span>
-              </div>
-            </div>
             <div style="width:280px;flex-shrink:0;margin-top:8px;">
               <img src="./middlecorp/n8n-workflow.png" alt="n8n workflow — Inbound Email Triage Agent" style="width:100%;border-radius:8px;border:1px solid var(--border);display:block;" />
               <div style="font-size:10px;color:var(--text-dim);margin-top:6px;letter-spacing:0.06em;text-transform:uppercase;">Live execution — n8n · Groq · HubSpot</div>
@@ -634,7 +723,18 @@
           <div>
             <div class="project-meta"><span class="project-tag">Portfolio Project</span><span class="project-status">August 2026</span></div>
             <div class="project-name">Meridian CA — Grounded RAG Assistant</div>
-            <div class="project-desc">
+            <div class="proj-metrics">
+              <div class="proj-metric"><span class="proj-metric-val">0.978</span><span class="proj-metric-lbl">behaviour accuracy over 45 labelled cases</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">0.000</span><span class="proj-metric-lbl">hallucination rate, measured not estimated</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">$0.0024</span><span class="proj-metric-lbl">per passing query</span></div>
+            </div>
+            <div class="proj-summary">
+              A grounded RAG pre-sales assistant over a martech knowledge base. Most RAG demos answer even when the base doesn't cover the question; this one treats refusal and escalation as first-class outcomes, traces every claim to a cited chunk, and proves it with a measured hallucination rate of zero.
+            </div>
+            <button class="proj-toggle" onclick="toggleBreakdown(this)">Read the full breakdown <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="proj-breakdown">
+              <div class="proj-breakdown-inner">
+              <div class="project-desc">
               <span class="proj-nar">The problem &mdash;</span>
               A pre-sales assistant over a martech vendor's knowledge base. Most RAG demos fail silently on one case: a question the base doesn't cover retrieves a chunk that sounds related, and the model answers anyway.<br/><br/>
               <span class="proj-nar">The approach &mdash;</span>
@@ -645,6 +745,8 @@
               45 labelled cases, 0.978 behaviour accuracy, 0.000 hallucination rate, $0.0024 per passing query. Measured, not estimated, with a retrieval-only ablation and a regression suite.<br/><br/>
               <span class="proj-nar">Limits &mdash;</span>
               One escalation case fails reproducibly: it refuses instead of routing. Left unpatched on purpose, tightening the prompt to fix it would convert legitimate refusals into escalations, trading a mild defect for a worse one. A named, understood failure is worth more than a 100% bought by tuning the prompt until the test set passes.
+              </div>
+              </div>
             </div>
             <div class="project-tech">
               <span class="tech-pill">RAG</span><span class="tech-pill">Gemini embeddings</span><span class="tech-pill">Gemini Flash</span><span class="tech-pill">Groq fallback</span><span class="tech-pill">Eval harness</span><span class="tech-pill">Vercel serverless</span>
@@ -665,7 +767,18 @@
           <div>
             <div class="project-meta"><span class="project-tag">AI Tool</span><span class="project-status">Live &mdash; May 2026</span></div>
             <div class="project-name">Debrief — Pre-call brief generator</div>
-            <div class="project-desc">
+            <div class="proj-metrics">
+              <div class="proj-metric"><span class="proj-metric-val">8h &rarr; minutes</span><span class="proj-metric-lbl">call prep time, per account</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">6</span><span class="proj-metric-lbl">serverless functions in production</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">Live</span><span class="proj-metric-lbl">real users, Stripe billing</span></div>
+            </div>
+            <div class="proj-summary">
+              CSMs lose hours before every call reconstructing account context from CRM notes, emails, tickets and Slack. Paste it all in, unformatted, and Debrief returns a structured brief: timeline, open commitments, risk signals, sentiment and a tailored opening line. A shipped product with auth, persistence and Stripe billing.
+            </div>
+            <button class="proj-toggle" onclick="toggleBreakdown(this)">Read the full breakdown <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="proj-breakdown">
+              <div class="proj-breakdown-inner">
+              <div class="project-desc">
               <span class="proj-nar">The problem &mdash;</span>
               CSMs spend up to 8 hours before every call piecing together context from CRM notes, emails, support tickets, and Slack threads. This is a real challenge and doing that for each client can be exhausting.<br/><br/>
               <span class="proj-nar">What I built &mdash;</span>
@@ -677,6 +790,8 @@
               <span class="proj-nar proj-nar-accent">The promise &mdash;</span>
               Drastically reduce the time you spend preparing a call, from 8 hours to just a few minutes.<br/><br/>
               Watch the onboarding video on the right.
+              </div>
+              </div>
             </div>
             <div class="project-tech">
               <span class="tech-pill">Groq API</span><span class="tech-pill">llama-3.3-70b</span><span class="tech-pill">Supabase auth</span><span class="tech-pill">Stripe webhooks</span><span class="tech-pill">Vercel serverless</span>
@@ -708,7 +823,18 @@
           <div>
             <div class="project-meta"><span class="project-tag">Dashboard</span><span class="project-status">Live &mdash; Jun 2026</span></div>
             <div class="project-name">Pulse — Implementation Health Tracker</div>
-            <div class="project-desc">
+            <div class="proj-metrics">
+              <div class="proj-metric"><span class="proj-metric-val">4</span><span class="proj-metric-lbl">health dimensions scored per project</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">&lt;60s</span><span class="proj-metric-lbl">from open to working, no onboarding</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">Live</span><span class="proj-metric-lbl">6 serverless functions, relational backend</span></div>
+            </div>
+            <div class="proj-summary">
+              When a retailer rolls out SaaS across countries, senior PMs juggle 4 to 6 implementations at once and live with one question: which is about to break? Pulse scores each project's health across four dimensions and runs an independent timeline per site, so France-ahead, Poland-behind is visible at a glance instead of buried in spreadsheets.
+            </div>
+            <button class="proj-toggle" onclick="toggleBreakdown(this)">Read the full breakdown <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="proj-breakdown">
+              <div class="proj-breakdown-inner">
+              <div class="project-desc">
               <span class="proj-nar">The problem &mdash;</span>
               When a retailer like Mango or Decathlon rolls out a new SaaS platform across multiple countries, it's 6 to 12 months of phases, stakeholders, integrations, and go-live pressures, all happening at once. Senior PMs live with one constant question: which of my projects is about to break and where do I stand in all of this?<br/><br/>
               <span class="proj-nar">What I built &mdash;</span>
@@ -720,6 +846,8 @@
               <span class="proj-nar proj-nar-accent">What makes it different &mdash;</span>
               Open it, load a project, and you're working in under 60 seconds. The four demo projects tell a complete story and guide you through how it works.<br/><br/>
               Watch the onboarding video on the right.
+              </div>
+              </div>
             </div>
             <div class="project-tech">
               <span class="tech-pill">Groq API</span><span class="tech-pill">Supabase</span><span class="tech-pill">Vercel serverless</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">REST API</span>
@@ -748,13 +876,26 @@
           <div>
             <div class="project-meta"><span class="project-tag">SaaS Tool</span><span class="project-status">Live &mdash; AI-powered</span></div>
             <div class="project-name">Job Pipeline Tracker</div>
-            <div class="project-desc">
+            <div class="proj-metrics">
+              <div class="proj-metric"><span class="proj-metric-val">Line-by-line</span><span class="proj-metric-lbl">CV matched against every JD requirement</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">2-in-1</span><span class="proj-metric-lbl">extraction + full fit analysis, one endpoint</span></div>
+              <div class="proj-metric"><span class="proj-metric-val">Live</span><span class="proj-metric-lbl">deterministic JSON, structured UI</span></div>
+            </div>
+            <div class="proj-summary">
+              Job hunting at volume is a pipeline problem disguised as a motivation problem. Built on B2B sales CRM logic: paste a job description, it extracts the structured data and runs a real fit analysis, matching every line of the CV against every requirement and naming what's strong and what's missing instead of a vague "good match".
+            </div>
+            <button class="proj-toggle" onclick="toggleBreakdown(this)">Read the full breakdown <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="proj-breakdown">
+              <div class="proj-breakdown-inner">
+              <div class="project-desc">
               <span class="proj-nar">The problem &mdash;</span>
               Job hunting at volume is a pipeline problem disguised as a motivation problem. Dozens of roles, each needing a real fit assessment, tracked across stages, with no structured way to compare them.<br/><br/>
               <span class="proj-nar">What I built &mdash;</span>
               A pipeline tool built on B2B sales CRM logic. Paste a job description, the system extracts the structured data (company, title, salary, location) and runs a full fit analysis: it matches every line of the CV against every requirement in the JD, produces a fit score, and names exactly what's strong and what's missing rather than a vague "good match". Stage tracking and Excel/CSV import round out the pipeline view.<br/><br/>
               <span class="proj-nar">Technical choices &mdash;</span>
               A single Vercel serverless function proxies Groq (llama-3.3-70b), keeping the API key server-side. Two modes share one endpoint: lightweight extraction for quick capture, full CV-vs-JD analysis when a real assessment is needed. Deterministic JSON output enforced by prompt, so the front end renders structured fields rather than free text.
+              </div>
+              </div>
             </div>
             <div class="project-tech">
               <span class="tech-pill">Groq API</span><span class="tech-pill">llama-3.3-70b</span><span class="tech-pill">Vercel backend</span><span class="tech-pill">SheetJS</span>
@@ -930,7 +1071,7 @@
         <div class="tool-group">
           <div class="tool-group-label">AI &amp; models</div>
           <div class="tool-chips">
-            <span class="tool-chip">Claude</span><span class="tool-chip">Groq</span>
+            <span class="tool-chip">Claude</span><span class="tool-chip">Groq</span><span class="tool-chip">Gemini</span>
           </div>
         </div>
         <div class="tool-group">
@@ -943,6 +1084,12 @@
           <div class="tool-group-label">Build &amp; deploy</div>
           <div class="tool-chips">
             <span class="tool-chip">Vercel</span><span class="tool-chip">GitHub</span><span class="tool-chip">Supabase</span>
+          </div>
+        </div>
+        <div class="tool-group">
+          <div class="tool-group-label">Communication</div>
+          <div class="tool-chips">
+            <span class="tool-chip">Slack</span><span class="tool-chip">Zoom</span><span class="tool-chip">Loom</span><span class="tool-chip">Google Meet</span>
           </div>
         </div>
         <div class="tool-group">
@@ -969,18 +1116,19 @@
             <div class="cert-card"><div class="cert-name">Building with the Claude API</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/yzf7v7pcamt2" target="_blank" rel="noopener">yzf7v7pcamt2 &nearr;</a></div></div>
             <div class="cert-card"><div class="cert-name">Claude Code in Action</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/h4t5cgjfdyst" target="_blank" rel="noopener">h4t5cgjfdyst &nearr;</a></div></div>
             <div class="cert-card"><div class="cert-name">Claude Platform 101</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/wyjfrndo9uwq" target="_blank" rel="noopener">wyjfrndo9uwq &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Teaching the AI Fluency Framework</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/ku9vuxyaaj79" target="_blank" rel="noopener">ku9vuxyaaj79 &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">AI Fluency for Educators</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/osuxucd4jrqz" target="_blank" rel="noopener">osuxucd4jrqz &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">AI Fluency for Small Businesses</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/rowkfn2naoo7" target="_blank" rel="noopener">rowkfn2naoo7 &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">AI Fluency for Builders</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/6qcwc49kfdkq" target="_blank" rel="noopener">6qcwc49kfdkq &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">AI Capabilities and Limitations</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/34kbmdxgufnk" target="_blank" rel="noopener">34kbmdxgufnk &nearr;</a></div></div>
             <div class="cert-card"><div class="cert-name">Claude Code 101</div><div class="cert-issuer">Anthropic &mdash; Jun 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/2ta6fberxc7u" target="_blank" rel="noopener">2ta6fberxc7u &nearr;</a></div></div>
             <div class="cert-card"><div class="cert-name">Introduction to Subagents</div><div class="cert-issuer">Anthropic &mdash; Jun 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/xy2h68r2jp24" target="_blank" rel="noopener">xy2h68r2jp24 &nearr;</a></div></div>
             <div class="cert-card"><div class="cert-name">Introduction to Agent Skills</div><div class="cert-issuer">Anthropic &mdash; Jun 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/he3oevuhwm5c" target="_blank" rel="noopener">he3oevuhwm5c &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Introduction to Claude Cowork</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/rc4jihf6ovpg" target="_blank" rel="noopener">rc4jihf6ovpg &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">AI Fluency: Framework &amp; Foundations</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/o8xzov45ddvy" target="_blank" rel="noopener">o8xzov45ddvy &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Claude 101</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/wdakobvbjuz7" target="_blank" rel="noopener">wdakobvbjuz7 &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">AI Capabilities and Limitations</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/34kbmdxgufnk" target="_blank" rel="noopener">34kbmdxgufnk &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency for Builders</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/6qcwc49kfdkq" target="_blank" rel="noopener">6qcwc49kfdkq &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency for Small Businesses</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/rowkfn2naoo7" target="_blank" rel="noopener">rowkfn2naoo7 &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">Teaching the AI Fluency Framework</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/ku9vuxyaaj79" target="_blank" rel="noopener">ku9vuxyaaj79 &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency for Educators</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/osuxucd4jrqz" target="_blank" rel="noopener">osuxucd4jrqz &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">Introduction to Claude Cowork</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/rc4jihf6ovpg" target="_blank" rel="noopener">rc4jihf6ovpg &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency: Framework &amp; Foundations</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/o8xzov45ddvy" target="_blank" rel="noopener">o8xzov45ddvy &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">Claude 101</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/wdakobvbjuz7" target="_blank" rel="noopener">wdakobvbjuz7 &nearr;</a></div></div>
           </div>
+          <button class="cert-more" onclick="toggleCerts(this)">Show all 14 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
         </div>
 
         <div class="reveal">
@@ -995,14 +1143,15 @@
           <div class="certs-grid">
             <div class="cert-card"><div class="cert-name">Integrating With HubSpot I: Foundations</div><div class="cert-issuer">HubSpot &mdash; Aug 2026</div><div class="cert-id">ID g46w7sxy</div></div>
             <div class="cert-card"><div class="cert-name">Revenue Operations</div><div class="cert-issuer">HubSpot &mdash; Jun 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/hlzmj1xw/en/1/thomas-hotton/revenue-operations" target="_blank" rel="noopener">hlzmj1xw &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Sales Hub Software</div><div class="cert-issuer">HubSpot &mdash; May 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/gfhfg9sh/en/1/thomas-hotton/hubspot-sales-hub-software" target="_blank" rel="noopener">de5404c5527a &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Service Hub Software</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/kyyqnp8c/en/1/thomas-hotton/service-hub-software" target="_blank" rel="noopener">5e8bc38882c5 &nearr;</a></div></div>
             <div class="cert-card"><div class="cert-name">Data Integrations</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/dqcyh384/en/1/thomas-hotton/data-integrations-certification" target="_blank" rel="noopener">ec927787bb18 &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Inbound Marketing</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/v67dhwjn/fr/1/thomas-hotton/inbound-marketing" target="_blank" rel="noopener">d02dd8977844 &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Frictionless Selling</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/qc4mj71j/fr/1/thomas-hotton/certification-a-la-methodologie-de-vente-sans-frictions" target="_blank" rel="noopener">565c0385efa9 &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Inbound Sales</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/k5635y9y/fr/1/thomas-hotton/certification-a-la-vente-inbound" target="_blank" rel="noopener">e8be24145f13 &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Inbound</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/pz4f7nt5/fr/1/thomas-hotton/inbound" target="_blank" rel="noopener">a32d633df385 &nearr;</a></div></div>
+            <div class="cert-card"><div class="cert-name">Service Hub Software</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/kyyqnp8c/en/1/thomas-hotton/service-hub-software" target="_blank" rel="noopener">5e8bc38882c5 &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">Sales Hub Software</div><div class="cert-issuer">HubSpot &mdash; May 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/gfhfg9sh/en/1/thomas-hotton/hubspot-sales-hub-software" target="_blank" rel="noopener">de5404c5527a &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">Inbound Marketing</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/v67dhwjn/fr/1/thomas-hotton/inbound-marketing" target="_blank" rel="noopener">d02dd8977844 &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">Frictionless Selling</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/qc4mj71j/fr/1/thomas-hotton/certification-a-la-methodologie-de-vente-sans-frictions" target="_blank" rel="noopener">565c0385efa9 &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">Inbound Sales</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/k5635y9y/fr/1/thomas-hotton/certification-a-la-vente-inbound" target="_blank" rel="noopener">e8be24145f13 &nearr;</a></div></div>
+            <div class="cert-card cert-hidden"><div class="cert-name">Inbound</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/pz4f7nt5/fr/1/thomas-hotton/inbound" target="_blank" rel="noopener">a32d633df385 &nearr;</a></div></div>
           </div>
+          <button class="cert-more" onclick="toggleCerts(this)">Show all 9 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
         </div>
 
         <div class="reveal">
@@ -1215,6 +1364,19 @@
         document.body.style.overflow = '';
       }
     });
+    function toggleCerts(btn) {
+      const grid = btn.previousElementSibling;
+      const isOpen = grid.classList.toggle('certs-open');
+      btn.classList.toggle('open', isOpen);
+      const total = grid.querySelectorAll('.cert-card').length;
+      btn.childNodes[0].textContent = isOpen ? 'Show less ' : ('Show all ' + total + ' ');
+    }
+    function toggleBreakdown(btn) {
+      const breakdown = btn.nextElementSibling;
+      const isOpen = breakdown.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.childNodes[0].textContent = isOpen ? 'Hide the breakdown ' : 'Read the full breakdown ';
+    }
     function toggleFaq(item) {
       const isOpen = item.classList.contains('open');
       document.querySelectorAll('.faq-item').forEach(i => {
