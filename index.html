@@ -645,7 +645,9 @@
               <span class="proj-nar proj-nar-accent">Trade-offs &mdash;</span>
               I considered a second AI layer to verify each draft before human review, then rejected it: a verifier carries the same failure risk as the agent it checks, and every draft already requires human approval before sending. It would add cost and latency and a false sense of security for no real gain. The human approval step is the real safety net, not another model.<br/><br/>
               <span class="proj-nar">Built under a real constraint &mdash;</span>
-              Mid-design, Groq announced the decommission of the originally validated model. The platform-choice section handles it head-on: a default provider for cost, EU-sovereignty fallbacks, a self-hosted last resort, and a direct answer to "why not HubSpot's native Breeze agent?". A working prototype was then built in n8n from the system prompt and tested end-to-end with real API calls, not simulated.
+              Mid-design, Groq announced the decommission of the originally validated model. The platform-choice section handles it head-on: a default provider for cost, EU-sovereignty fallbacks, a self-hosted last resort, and a direct answer to "why not HubSpot's native Breeze agent?". A working prototype was then built in n8n from the system prompt and tested end-to-end with real API calls, not simulated.<br/><br/>
+              <span class="proj-nar proj-nar-accent">Limits &mdash;</span>
+              One thing doesn't fully hold yet: if the business redefines a segment threshold, keeping the AI agent aligned means updating the prompt as part of that change process, not an automatic safeguard that catches it. Simple to integrate, but not yet built in, and worth naming rather than hiding.
               </div>
               </div>
             </div>
@@ -732,15 +734,16 @@
               <span class="proj-nar">What you track over time &mdash;</span>
               Save accounts between sessions. The AI sees the full history on the next paste, so the longer you use it on an account, the richer the brief. A weekly watchlist surfaces which saved accounts need attention.<br/><br/>
               <span class="proj-nar">Technical choices &mdash;</span>
-              Six serverless functions on Vercel handle the full flow: brief generation, call summary, follow-up email, watchlist scoring and a Stripe webhook. The Groq API key stays server-side, never exposed to the client. Groq's llama-3.3-70b-versatile powers the reasoning where quality matters most. Supabase handles auth and account persistence. The Stripe webhook verifies its signature before unlocking paid access.<br/><br/>
-              <span class="proj-nar proj-nar-accent">The promise &mdash;</span>
-              Drastically reduce the time you spend preparing a call, from 8 hours to just a few minutes.<br/><br/>
-              Watch the onboarding video on the right.
+              Six serverless functions on Vercel handle the full flow: brief generation, call summary, follow-up email, watchlist scoring and a Stripe webhook. The Groq API key stays server-side, never exposed to the client. Groq's gpt-oss-120b powers the reasoning. Supabase handles auth and account persistence. The Stripe webhook verifies its signature before unlocking paid access.<br/><br/>
+              <span class="proj-nar">A problem worth solving &mdash;</span>
+              Reasoning models spend tokens thinking before they answer, out of the same budget as the response. On long notes, the model would exhaust it mid-reasoning and return nothing. The fix was three-part: cap the reasoning effort, keep the thinking out of the payload, and enforce a token floor server-side so a small client value can't reintroduce the bug. A truncated response still gets one retry before failing with the real reason, not "unexpected end of JSON".<br/><br/>
+              <span class="proj-nar proj-nar-accent">Limits &mdash;</span>
+              The anonymous rate limit lives in memory, so it resets on cold start, it's friction, not real protection; a reliable limit would need a shared store like Redis. And timeline dates are taken from the notes as written, undated notes produce undated entries. Both are known trade-offs, documented in the repo, not oversights.
               </div>
               </div>
             </div>
             <div class="project-tech">
-              <span class="tech-pill">Groq API</span><span class="tech-pill">llama-3.3-70b</span><span class="tech-pill">Supabase auth</span><span class="tech-pill">Stripe webhooks</span><span class="tech-pill">Vercel serverless</span>
+              <span class="tech-pill">Groq API</span><span class="tech-pill">gpt-oss-120b</span><span class="tech-pill">Supabase auth</span><span class="tech-pill">Stripe webhooks</span><span class="tech-pill">Vercel serverless</span>
             </div>
           </div>
           <div class="project-actions">
@@ -785,15 +788,16 @@
               <span class="proj-nar">Who it's for &mdash;</span>
               Senior PMs and Implementation Managers running complex SaaS deployments for international retail clients, 4 to 6 projects simultaneously, needing a single source of truth that doesn't require a 3-week onboarding.<br/><br/>
               <span class="proj-nar">Technical choices &mdash;</span>
-              Six serverless functions on Vercel proxy every call to Groq and Supabase, so no API key ever reaches the client. A Supabase Postgres database holds the relational model: projects, sites, milestones, log entries and note sessions, each project linked to its own independent site timelines. Auth is token-based, every data call scoped to the logged-in user. Groq's llama3-8b-8192 powers the health-score reasoning.<br/><br/>
-              <span class="proj-nar proj-nar-accent">What makes it different &mdash;</span>
-              Open it, load a project, and you're working in under 60 seconds. The four demo projects tell a complete story and guide you through how it works.<br/><br/>
-              Watch the onboarding video on the right.
+              Six serverless functions on Vercel proxy every call to Groq and Supabase, so no API key ever reaches the client. A Supabase Postgres database holds the relational model: projects, sites, milestones, log entries and note sessions, each project linked to its own independent site timelines. Auth is token-based, every data call scoped to the logged-in user. Groq's gpt-oss-20b powers the AI debrief.<br/><br/>
+              <span class="proj-nar">A design choice &mdash;</span>
+              One project fetch returns everything, its sites, milestones, log entries and note sessions, in a single request rather than one call per relation. And the AI debrief fails cleanly: a 25-second timeout aborts the call before Vercel kills the function, so the user gets "try a shorter input" instead of a cryptic crash. Small things, but they're the difference between a demo and something you'd actually rely on.<br/><br/>
+              <span class="proj-nar proj-nar-accent">Limits &mdash;</span>
+              Auth uses Supabase's anon key on the client, which is safe only if Row Level Security is correctly configured, that's the real security boundary here, not the key. And the health score composites four dimensions that are entered, not automatically measured, so it reflects the quality of what's logged. Both are documented, not hidden.
               </div>
               </div>
             </div>
             <div class="project-tech">
-              <span class="tech-pill">Groq API</span><span class="tech-pill">Supabase</span><span class="tech-pill">Vercel serverless</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">REST API</span>
+              <span class="tech-pill">Groq API</span><span class="tech-pill">gpt-oss-20b</span><span class="tech-pill">Supabase</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">Vercel serverless</span>
             </div>
           </div>
           <div class="project-actions">
