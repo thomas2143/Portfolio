@@ -643,11 +643,11 @@
               <span class="proj-nar">Part 2 — the AI agent &mdash;</span>
               A three-tier cascade (rule-based pre-filter → AI agent → human), the established production pattern for cutting LLM cost without losing quality on hard cases. The agent only sees free-text, ambiguous, multi-intent emails. CRM data and untrusted email text are separated inside XML tags, a stronger injection defense than plain-language separation, hardened further after adversarial testing surfaced an XML-escaping bypass that I then fixed. Multilingual handling, budget tracking, guardrails, evaluation metrics and off-switch criteria are all specified, not hand-waved.<br/><br/>
               <span class="proj-nar proj-nar-accent">Trade-offs &mdash;</span>
-              I considered a second AI layer to verify each draft before human review, then rejected it: a verifier carries the same failure risk as the agent it checks, and every draft already requires human approval before sending. It would add cost and latency and a false sense of security for no real gain. The human approval step is the real safety net, not another model.<br/><br/>
+              I considered a second AI layer to verify each draft before human review, then rejected it: a verifier carries the same failure risk as the agent it checks, and every draft already requires human approval before sending. It would add cost and latency and a false sense of security for no real gain. The human approval step is where the real safety lives.<br/><br/>
               <span class="proj-nar">Built under a real constraint &mdash;</span>
-              Mid-design, Groq announced the decommission of the originally validated model. The platform-choice section handles it head-on: a default provider for cost, EU-sovereignty fallbacks, a self-hosted last resort, and a direct answer to "why not HubSpot's native Breeze agent?". A working prototype was then built in n8n from the system prompt and tested end-to-end with real API calls, not simulated.<br/><br/>
+              Mid-design, Groq announced the decommission of the originally validated model. The platform-choice section handles it head-on: a default provider for cost, EU-sovereignty fallbacks, a self-hosted last resort, and a direct answer to "why not HubSpot's native Breeze agent?". A working prototype was then built in n8n from the system prompt and tested end-to-end against real APIs.<br/><br/>
               <span class="proj-nar proj-nar-accent">Limits &mdash;</span>
-              One thing doesn't fully hold yet: if the business redefines a segment threshold, keeping the AI agent aligned means updating the prompt as part of that change process, not an automatic safeguard that catches it. Simple to integrate, but not yet built in, and worth naming rather than hiding.
+              One thing doesn't fully hold yet: if the business redefines a segment threshold, keeping the AI agent aligned means updating the prompt as part of that change process, since there's no automatic safeguard that catches it. It's simple to build in, I just haven't yet, and I'd rather say so than pretend it's handled.
               </div>
               </div>
             </div>
@@ -738,7 +738,7 @@
               <span class="proj-nar">A problem worth solving &mdash;</span>
               Reasoning models spend tokens thinking before they answer, out of the same budget as the response. On long notes, the model would exhaust it mid-reasoning and return nothing. The fix was three-part: cap the reasoning effort, keep the thinking out of the payload, and enforce a token floor server-side so a small client value can't reintroduce the bug. A truncated response still gets one retry before failing with the real reason, not "unexpected end of JSON".<br/><br/>
               <span class="proj-nar proj-nar-accent">Limits &mdash;</span>
-              The anonymous rate limit lives in memory, so it resets on cold start, it's friction, not real protection; a reliable limit would need a shared store like Redis. And timeline dates are taken from the notes as written, undated notes produce undated entries. Both are known trade-offs, documented in the repo, not oversights.
+              The anonymous rate limit lives in memory, so it resets on cold start: it slows abuse down without truly stopping it, and a reliable limit would need a shared store like Redis. And timeline dates are taken from the notes as written, so undated notes produce undated entries. I know about both, they're in the repo as trade-offs I chose to leave for now.
               </div>
               </div>
             </div>
@@ -790,9 +790,9 @@
               <span class="proj-nar">Technical choices &mdash;</span>
               Six serverless functions on Vercel proxy every call to Groq and Supabase, so no API key ever reaches the client. A Supabase Postgres database holds the relational model: projects, sites, milestones, log entries and note sessions, each project linked to its own independent site timelines. Auth is token-based, every data call scoped to the logged-in user. Groq's gpt-oss-20b powers the AI debrief.<br/><br/>
               <span class="proj-nar">A design choice &mdash;</span>
-              One project fetch returns everything, its sites, milestones, log entries and note sessions, in a single request rather than one call per relation. And the AI debrief fails cleanly: a 25-second timeout aborts the call before Vercel kills the function, so the user gets "try a shorter input" instead of a cryptic crash. Small things, but they're the difference between a demo and something you'd actually rely on.<br/><br/>
+              One project fetch returns everything, its sites, milestones, log entries and note sessions, in a single request rather than one call per relation. And the AI debrief fails cleanly: a 25-second timeout aborts the call before Vercel kills the function, so the user gets "try a shorter input" instead of a cryptic crash. These are the kind of details that only matter once someone actually depends on the tool.<br/><br/>
               <span class="proj-nar proj-nar-accent">Limits &mdash;</span>
-              Auth uses Supabase's anon key on the client, which is safe only if Row Level Security is correctly configured, that's the real security boundary here, not the key. And the health score composites four dimensions that are entered, not automatically measured, so it reflects the quality of what's logged. Both are documented, not hidden.
+              Auth uses Supabase's anon key on the client, so the real security boundary is Row Level Security, which has to be configured correctly for the key to be safe. And the health score composites four dimensions that a user enters rather than measures automatically, so it's only as good as what gets logged. I call both out in the repo rather than glossing over them.
               </div>
               </div>
             </div>
@@ -915,14 +915,14 @@
           <div class="advantage-title">Reading people &amp; stakeholders</div>
           <div class="advantage-desc">A decade of coaching practice, ICF Level 2 in progress, applied to how I work with clients and teams.</div>
           <div class="advantage-rule"></div>
-          <div class="advantage-proof">I pick up quickly on what's blocking a decision and where someone is actually hesitating. In practice that means I can sit with a business stakeholder, hear the real need behind a vague request, and move the conversation toward something concrete, which is often the difference between a project that ships and one that stalls.</div>
+          <div class="advantage-proof">I pick up quickly on what's blocking a decision and where someone is actually hesitating. In practice that means I can sit with a business stakeholder, hear the real need behind a vague request, and move the conversation toward something concrete, which is often what gets a project shipped instead of stalled.</div>
         </div>
         <div class="advantage-card reveal" style="transition-delay:180ms;">
           <span class="advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></span>
           <div class="advantage-title">Production</div>
           <div class="advantage-desc">ESRA film school trained, with a professional video background.</div>
           <div class="advantage-rule"></div>
-          <div class="advantage-proof">Knowing a system isn't the same as making people use it. I can produce the client-facing material myself, walkthroughs, demos, onboarding videos, so a solution is understood and adopted, not just delivered. Adoption is where most tools quietly fail, and it's something I actively design for.</div>
+          <div class="advantage-proof">Knowing a system is one thing; getting people to actually use it is another. I can produce the client-facing material myself, walkthroughs, demos, onboarding videos, so a solution gets understood and adopted instead of just handed over. Adoption is where most tools quietly fail, and it's something I actively design for.</div>
         </div>
         <div class="advantage-card reveal" style="transition-delay:270ms;grid-column: 1 / -1;">
           <span class="advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
@@ -1152,7 +1152,7 @@
             <div class="faq-toggle">+</div>
           </div>
           <div class="faq-answer">
-            <div class="faq-a-text">Fast, because it's how I already operate. I look into the real problems companies face, the ones brought to me directly, and I work toward a solution built for actual deployment, not a demo. The Work Samples are exactly that: real problems, real systems. I also learn actively and independently, the certifications and the tools I've shipped alone are the proof. You wouldn't be onboarding someone waiting to be trained, but someone already building.</div>
+            <div class="faq-a-text">Fast, because it's how I already operate. I look into the real problems companies face, the ones brought to me directly, and I work toward a solution built to actually ship. The Work Samples are exactly that: real problems, real systems. I also learn actively and independently, the certifications and the tools I've shipped alone are the proof. You'd be onboarding someone who's already building, not someone waiting to be trained.</div>
           </div>
         </div>
 
@@ -1172,7 +1172,7 @@
             <div class="faq-toggle">+</div>
           </div>
           <div class="faq-answer">
-            <div class="faq-a-text">English and French, fully bilingual, plus Russian in progress. That covers EMEA, North America and the Russian-speaking markets, a region that's expanding fast and where cultural fluency, not just translation, is what actually closes the gap.</div>
+            <div class="faq-a-text">English and French, fully bilingual, plus Russian in progress. That covers EMEA, North America and the Russian-speaking markets, a region that's expanding fast and where reading the culture, beyond just the words, is what actually closes the gap.</div>
           </div>
         </div>
 
