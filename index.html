@@ -255,6 +255,9 @@
     /* ── CERTIFICATIONS ── */
     .certs-section { display: flex; flex-direction: column; gap: 32px; }
     .cert-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; }
+    .cert-brand { margin-bottom: 20px; }
+    .cert-brand:last-child { margin-bottom: 0; }
+    .cert-brand-label { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 10px; font-family: 'Space Grotesk', sans-serif; }
     .cert-card.cert-hidden { display: none; }
     .certs-grid.certs-open .cert-card.cert-hidden { display: block; }
     .cert-more { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; background: none; border: none; cursor: pointer; color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500; padding: 0; transition: gap 0.2s; }
@@ -1071,55 +1074,63 @@
       <div class="certs-section">
 
         <div class="reveal">
-          <div class="cert-group-label">Anthropic</div>
-          <div class="certs-grid">
-            <div class="cert-card"><div class="cert-name">Building with the Claude API</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/yzf7v7pcamt2" target="_blank" rel="noopener">yzf7v7pcamt2 &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Claude Code in Action</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/h4t5cgjfdyst" target="_blank" rel="noopener">h4t5cgjfdyst &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Claude Platform 101</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/wyjfrndo9uwq" target="_blank" rel="noopener">wyjfrndo9uwq &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Claude Code 101</div><div class="cert-issuer">Anthropic &mdash; Jun 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/2ta6fberxc7u" target="_blank" rel="noopener">2ta6fberxc7u &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">Introduction to Subagents</div><div class="cert-issuer">Anthropic &mdash; Jun 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/xy2h68r2jp24" target="_blank" rel="noopener">xy2h68r2jp24 &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">Introduction to Agent Skills</div><div class="cert-issuer">Anthropic &mdash; Jun 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/he3oevuhwm5c" target="_blank" rel="noopener">he3oevuhwm5c &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">AI Capabilities and Limitations</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/34kbmdxgufnk" target="_blank" rel="noopener">34kbmdxgufnk &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency for Builders</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/6qcwc49kfdkq" target="_blank" rel="noopener">6qcwc49kfdkq &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency for Small Businesses</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/rowkfn2naoo7" target="_blank" rel="noopener">rowkfn2naoo7 &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">Teaching the AI Fluency Framework</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/ku9vuxyaaj79" target="_blank" rel="noopener">ku9vuxyaaj79 &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency for Educators</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/osuxucd4jrqz" target="_blank" rel="noopener">osuxucd4jrqz &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">Introduction to Claude Cowork</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/rc4jihf6ovpg" target="_blank" rel="noopener">rc4jihf6ovpg &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency: Framework &amp; Foundations</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/o8xzov45ddvy" target="_blank" rel="noopener">o8xzov45ddvy &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">Claude 101</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/wdakobvbjuz7" target="_blank" rel="noopener">wdakobvbjuz7 &nearr;</a></div></div>
-          </div>
-          <button class="cert-more" onclick="toggleCerts(this)">Show all 14 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
-        </div>
-
-        <div class="reveal">
-          <div class="cert-group-label">n8n</div>
-          <div class="certs-grid">
-            <div class="cert-card"><div class="cert-name">Essentials: Your First Workflows</div><div class="cert-issuer">n8n &mdash; Aug 2026</div><div class="cert-id">ID 21829600</div></div>
-            <div class="cert-card"><div class="cert-name">In Practice: AI, Testing &amp; Best Practices</div><div class="cert-issuer">n8n &mdash; Sep 2026</div><div class="cert-id">ID 21948330</div></div>
+          <div class="cert-group-label">AI</div>
+          <div class="cert-brand">
+            <div class="cert-brand-label">Anthropic</div>
+            <div class="certs-grid">
+              <div class="cert-card"><div class="cert-name">Building with the Claude API</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/yzf7v7pcamt2" target="_blank" rel="noopener">yzf7v7pcamt2 &nearr;</a></div></div>
+              <div class="cert-card"><div class="cert-name">Claude Code in Action</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/h4t5cgjfdyst" target="_blank" rel="noopener">h4t5cgjfdyst &nearr;</a></div></div>
+              <div class="cert-card"><div class="cert-name">Claude Platform 101</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/wyjfrndo9uwq" target="_blank" rel="noopener">wyjfrndo9uwq &nearr;</a></div></div>
+              <div class="cert-card"><div class="cert-name">Claude Code 101</div><div class="cert-issuer">Anthropic &mdash; Jun 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/2ta6fberxc7u" target="_blank" rel="noopener">2ta6fberxc7u &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Introduction to Subagents</div><div class="cert-issuer">Anthropic &mdash; Jun 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/xy2h68r2jp24" target="_blank" rel="noopener">xy2h68r2jp24 &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Introduction to Agent Skills</div><div class="cert-issuer">Anthropic &mdash; Jun 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/he3oevuhwm5c" target="_blank" rel="noopener">he3oevuhwm5c &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">AI Capabilities and Limitations</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/34kbmdxgufnk" target="_blank" rel="noopener">34kbmdxgufnk &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency for Builders</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/6qcwc49kfdkq" target="_blank" rel="noopener">6qcwc49kfdkq &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency for Small Businesses</div><div class="cert-issuer">Anthropic &mdash; Jul 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/rowkfn2naoo7" target="_blank" rel="noopener">rowkfn2naoo7 &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Teaching the AI Fluency Framework</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/ku9vuxyaaj79" target="_blank" rel="noopener">ku9vuxyaaj79 &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency for Educators</div><div class="cert-issuer">Anthropic &mdash; Aug 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/osuxucd4jrqz" target="_blank" rel="noopener">osuxucd4jrqz &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Introduction to Claude Cowork</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/rc4jihf6ovpg" target="_blank" rel="noopener">rc4jihf6ovpg &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">AI Fluency: Framework &amp; Foundations</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/o8xzov45ddvy" target="_blank" rel="noopener">o8xzov45ddvy &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Claude 101</div><div class="cert-issuer">Anthropic &mdash; May 2026</div><div class="cert-id"><a href="https://verify.skilljar.com/c/wdakobvbjuz7" target="_blank" rel="noopener">wdakobvbjuz7 &nearr;</a></div></div>
+            </div>
+            <button class="cert-more" onclick="toggleCerts(this)">Show all 14 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
           </div>
         </div>
 
         <div class="reveal">
-          <div class="cert-group-label">HubSpot Academy</div>
-          <div class="certs-grid">
-            <div class="cert-card"><div class="cert-name">Integrating With HubSpot: Foundations</div><div class="cert-issuer">HubSpot &mdash; Aug 2026</div><div class="cert-id">ID g46w7sxy</div></div>
-            <div class="cert-card"><div class="cert-name">Revenue Operations</div><div class="cert-issuer">HubSpot &mdash; Jun 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/hlzmj1xw/en/1/thomas-hotton/revenue-operations" target="_blank" rel="noopener">hlzmj1xw &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Data Integrations</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/dqcyh384/en/1/thomas-hotton/data-integrations-certification" target="_blank" rel="noopener">ec927787bb18 &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Service Hub Software</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/kyyqnp8c/en/1/thomas-hotton/service-hub-software" target="_blank" rel="noopener">5e8bc38882c5 &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">Sales Hub Software</div><div class="cert-issuer">HubSpot &mdash; May 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/gfhfg9sh/en/1/thomas-hotton/hubspot-sales-hub-software" target="_blank" rel="noopener">de5404c5527a &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">Inbound Marketing</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/v67dhwjn/fr/1/thomas-hotton/inbound-marketing" target="_blank" rel="noopener">d02dd8977844 &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">Frictionless Selling</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/qc4mj71j/fr/1/thomas-hotton/certification-a-la-methodologie-de-vente-sans-frictions" target="_blank" rel="noopener">565c0385efa9 &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">Inbound Sales</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/k5635y9y/fr/1/thomas-hotton/certification-a-la-vente-inbound" target="_blank" rel="noopener">e8be24145f13 &nearr;</a></div></div>
-            <div class="cert-card cert-hidden"><div class="cert-name">Inbound</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/pz4f7nt5/fr/1/thomas-hotton/inbound" target="_blank" rel="noopener">a32d633df385 &nearr;</a></div></div>
+          <div class="cert-group-label">Automation</div>
+          <div class="cert-brand">
+            <div class="cert-brand-label">n8n</div>
+            <div class="certs-grid">
+              <div class="cert-card"><div class="cert-name">Essentials: Your First Workflows</div><div class="cert-issuer">n8n &mdash; Aug 2026</div><div class="cert-id">ID 21829600</div></div>
+              <div class="cert-card"><div class="cert-name">In Practice: AI, Testing &amp; Best Practices</div><div class="cert-issuer">n8n &mdash; Sep 2026</div><div class="cert-id">ID 21948330</div></div>
+            </div>
           </div>
-          <button class="cert-more" onclick="toggleCerts(this)">Show all 9 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
         </div>
 
         <div class="reveal">
-          <div class="cert-group-label">Gainsight</div>
-          <div class="certs-grid">
-            <div class="cert-card"><div class="cert-name">AI-Powered Customer Success</div><div class="cert-issuer">Gainsight &mdash; Apr 2026</div><div class="cert-id"><a href="https://www.credly.com/badges/f422203c-23b2-407e-a813-58821e4cec7f/linked_in_profile" target="_blank" rel="noopener">Credly badge &nearr;</a></div></div>
-            <div class="cert-card"><div class="cert-name">Durable Growth Playbook</div><div class="cert-issuer">Gainsight &mdash; Apr 2026</div><div class="cert-id"><a href="https://www.credly.com/badges/972e5626-d030-403a-8367-7a5aa19a7c49/linked_in_profile" target="_blank" rel="noopener">Credly badge &nearr;</a></div></div>
+          <div class="cert-group-label">CRM - RevOps &amp; Client Success</div>
+          <div class="cert-brand">
+            <div class="cert-brand-label">HubSpot</div>
+            <div class="certs-grid">
+              <div class="cert-card"><div class="cert-name">Integrating With HubSpot: Foundations</div><div class="cert-issuer">HubSpot &mdash; Aug 2026</div><div class="cert-id">ID g46w7sxy</div></div>
+              <div class="cert-card"><div class="cert-name">Revenue Operations</div><div class="cert-issuer">HubSpot &mdash; Jun 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/hlzmj1xw/en/1/thomas-hotton/revenue-operations" target="_blank" rel="noopener">hlzmj1xw &nearr;</a></div></div>
+              <div class="cert-card"><div class="cert-name">Data Integrations</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/dqcyh384/en/1/thomas-hotton/data-integrations-certification" target="_blank" rel="noopener">ec927787bb18 &nearr;</a></div></div>
+              <div class="cert-card"><div class="cert-name">Service Hub Software</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/kyyqnp8c/en/1/thomas-hotton/service-hub-software" target="_blank" rel="noopener">5e8bc38882c5 &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Sales Hub Software</div><div class="cert-issuer">HubSpot &mdash; May 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/gfhfg9sh/en/1/thomas-hotton/hubspot-sales-hub-software" target="_blank" rel="noopener">de5404c5527a &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Inbound Marketing</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/v67dhwjn/fr/1/thomas-hotton/inbound-marketing" target="_blank" rel="noopener">d02dd8977844 &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Frictionless Selling</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/qc4mj71j/fr/1/thomas-hotton/certification-a-la-methodologie-de-vente-sans-frictions" target="_blank" rel="noopener">565c0385efa9 &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Inbound Sales</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/k5635y9y/fr/1/thomas-hotton/certification-a-la-vente-inbound" target="_blank" rel="noopener">e8be24145f13 &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Inbound</div><div class="cert-issuer">HubSpot &mdash; Apr 2026</div><div class="cert-id"><a href="https://app-eu1.hubspot.com/academy/achievements/pz4f7nt5/fr/1/thomas-hotton/inbound" target="_blank" rel="noopener">a32d633df385 &nearr;</a></div></div>
+            </div>
+            <button class="cert-more" onclick="toggleCerts(this)">Show all 9 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>
+          <div class="cert-brand">
+            <div class="cert-brand-label">Gainsight</div>
+            <div class="certs-grid">
+              <div class="cert-card"><div class="cert-name">AI-Powered Customer Success</div><div class="cert-issuer">Gainsight &mdash; Apr 2026</div><div class="cert-id"><a href="https://www.credly.com/badges/f422203c-23b2-407e-a813-58821e4cec7f/linked_in_profile" target="_blank" rel="noopener">Credly badge &nearr;</a></div></div>
+              <div class="cert-card"><div class="cert-name">Durable Growth Playbook</div><div class="cert-issuer">Gainsight &mdash; Apr 2026</div><div class="cert-id"><a href="https://www.credly.com/badges/972e5626-d030-403a-8367-7a5aa19a7c49/linked_in_profile" target="_blank" rel="noopener">Credly badge &nearr;</a></div></div>
+            </div>
           </div>
         </div>
 
