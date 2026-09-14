@@ -1144,9 +1144,10 @@
           <div class="cert-brand">
             <div class="cert-brand-label">Gainsight</div>
             <div class="certs-grid">
-              <div class="cert-card"><div class="cert-name">AI-Powered Customer Success</div><div class="cert-issuer">Gainsight &mdash; Apr 2026</div><div class="cert-id"><a href="https://www.credly.com/badges/f422203c-23b2-407e-a813-58821e4cec7f/linked_in_profile" target="_blank" rel="noopener">Credly badge &nearr;</a></div></div>
-              <div class="cert-card"><div class="cert-name">Durable Growth Playbook</div><div class="cert-issuer">Gainsight &mdash; Apr 2026</div><div class="cert-id"><a href="https://www.credly.com/badges/972e5626-d030-403a-8367-7a5aa19a7c49/linked_in_profile" target="_blank" rel="noopener">Credly badge &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">AI-Powered Customer Success</div><div class="cert-issuer">Gainsight &mdash; Apr 2026</div><div class="cert-id"><a href="https://www.credly.com/badges/f422203c-23b2-407e-a813-58821e4cec7f/linked_in_profile" target="_blank" rel="noopener">Credly badge &nearr;</a></div></div>
+              <div class="cert-card cert-hidden"><div class="cert-name">Durable Growth Playbook</div><div class="cert-issuer">Gainsight &mdash; Apr 2026</div><div class="cert-id"><a href="https://www.credly.com/badges/972e5626-d030-403a-8367-7a5aa19a7c49/linked_in_profile" target="_blank" rel="noopener">Credly badge &nearr;</a></div></div>
             </div>
+            <button class="cert-more" onclick="toggleCerts(this)">Show 2 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
           </div>
         </div>
 
@@ -1357,7 +1358,9 @@
       const isOpen = grid.classList.toggle('certs-open');
       btn.classList.toggle('open', isOpen);
       const total = grid.querySelectorAll('.cert-card').length;
-      btn.childNodes[0].textContent = isOpen ? 'Show less ' : ('Show all ' + total + ' ');
+      const hidden = grid.querySelectorAll('.cert-card.cert-hidden').length;
+      const closedLabel = (hidden === total) ? ('Show ' + total + ' ') : ('Show all ' + total + ' ');
+      btn.childNodes[0].textContent = isOpen ? 'Show less ' : closedLabel;
     }
     function toggleBreakdown(btn) {
       const breakdown = btn.nextElementSibling;
